@@ -15,6 +15,7 @@ use App\Livewire\Users\UsersIndex;
 use App\Livewire\Users\UserShow;
 use App\Livewire\Logs\LogsPage;
 use App\Livewire\Translations\TranslationsManager;
+use App\Livewire\Wallets\Transactions\TransactionsIndex;
 use App\Models\Translation;
 
 Route::get('/', function () {
@@ -48,6 +49,12 @@ Route::middleware(['auth', 'verified', 'statusCheck'])->group(function () {
     Route::get('users/create', UserCreate::class)->name('users.create');
     Route::get('users/show/{user}', UserShow::class)->name('users.show');
     Route::get('users/edit/{user}', UserEdit::class)->name('users.edit');
+
+    // transactions routes
+
+    Route::get('transactions', TransactionsIndex::class)->name('transactions.index');
+
+
 
     // Activity Logs Routes
     Route::get('activity-logs', LogsPage::class)->name('activity-logs.index');

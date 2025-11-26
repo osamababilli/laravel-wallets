@@ -13,6 +13,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\Language;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,10 +34,13 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Role::class, RolePolicy::class);
         Gate::policy(Activity::class, LogsPolicy::class);
 
-        $defaultLang = cache()->remember('default_language', 3600, function () {
-            return Language::where('is_default', true)->value('code') ?? 'en';
-        });
+        // تحقق من وجود جدول languages قبل استخدامه
+        if (Schema::hasTable('languages')) {
+            $defaultLang = cache()->remember('default_language', 3600, function () {
+                return Language::where('is_default', true)->value('code') ?? 'en';
+            });
 
-        App::setLocale($defaultLang);
+            App::setLocale($defaultLang);
+        }
     }
 }

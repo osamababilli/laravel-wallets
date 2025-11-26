@@ -11,13 +11,15 @@ use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Traits\HasWallets;
 
 
-
-class User extends Authenticatable
+class User extends Authenticatable implements Wallet
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, HasRoles;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles, HasWallets, HasWallet;
     use LogsActivity;
 
     /**
@@ -77,5 +79,16 @@ class User extends Authenticatable
         return LogOptions::defaults()
             ->logOnly(['name', 'email', 'phone', 'status'])   // فقط الحقول اللي بدك تتابع تغيّرها
             ->logOnlyDirty();                    // يسجّل فقط الحقول التي تغيرت فعليًا
+    }
+
+    //// Automatically create a wallet when a user is created
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->createWallet([
+                'name' => 'USDT Wallet',
+                'slug' => 'USDT',
+            ]);
+        });
     }
 }

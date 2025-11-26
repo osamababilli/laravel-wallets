@@ -114,6 +114,7 @@
                         <th scope="col" class="px-4 py-3">{{ __('Email') }}</th>
                         <th scope="col" class="px-4 py-3">{{ __('Email Verified') }}</th>
                         <th scope="col" class="px-4 py-3">{{ __('Role') }}</th>
+                        <th scope="col" class="px-4 py-3">{{ __('Wallet Balance') }}</th>
 
                         <th scope="col" class="px-4 py-3">{{ __('Active') }}</th>
 
@@ -149,6 +150,15 @@
                                 <flux:badge as="button" variant="pill" size="lg">
                                     {{ $user->roles->isNotEmpty() ? $user->roles->pluck('name')->join(', ') : __('None') }}
                                 </flux:badge>
+
+
+                            </td>
+
+                            <td class="px-4 py-3 ">
+
+
+                                {{ number_format($user->balance, 2) . '  ' }} USDT
+
 
 
                             </td>

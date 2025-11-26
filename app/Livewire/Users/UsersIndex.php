@@ -26,7 +26,7 @@ class UsersIndex extends Component
     public function getData()
     {
 
-        $query = User::query();
+        $query = User::query()->with(['roles', 'wallets']);
 
         if ($this->search) {
             $this->resetPage();

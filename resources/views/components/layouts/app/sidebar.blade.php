@@ -28,6 +28,22 @@
                     </flux:navlist.item>
                 </flux:navlist.group>
 
+
+                <flux:navlist.group :heading="__('Wallet Management')" class="mt-3 space-y-1">
+                    <flux:navlist.group expandable :expanded="false" heading="{{ __('Wallet') }}">
+                        <flux:navlist.item :href="route('transactions.index')"
+                            :current="request()->routeIs('transactions.index')" wire:navigate>
+                            {{ __('All Transactions') }}
+                        </flux:navlist.item>
+
+                        {{-- <flux:navlist.item :href="route('users.create')" :current="request()->routeIs('users.create')"
+                            wire:navigate>
+                            {{ __('Create New User') }}
+                        </flux:navlist.item> --}}
+
+                    </flux:navlist.group>
+                </flux:navlist.group>
+
                 @can('view users')
                     <flux:navlist.group :heading="__('Users Management')" class="mt-3 space-y-1">
                         <flux:navlist.group expandable :expanded="false" heading="{{ __('Users') }}">
