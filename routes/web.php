@@ -53,7 +53,10 @@ Route::middleware(['auth', 'verified', 'statusCheck'])->group(function () {
     // transactions routes
 
     Route::get('transactions', TransactionsIndex::class)->name('transactions.index');
-
+    // end transactions routes
+    // wallet requests routes
+    Route::get('wallet-requests', \App\Livewire\Wallets\WalletsRequests::class)->name('wallet-requests.index');
+    // end wallet requests routes
 
 
     // Activity Logs Routes

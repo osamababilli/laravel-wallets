@@ -24,6 +24,14 @@
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             {{ __('Type') }}
                         </th>
+                        @hasrole('super admin')
+                            <th scope="col"
+                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                {{ __('User') }}
+                            </th>
+                        @endhasrole
+                        {{-- المحاذاة أصبحت text-center (يمين في RTL) --}}
+
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             {{ __('TXID') }}
@@ -58,6 +66,12 @@
                                     @endif
                                 </span>
                             </td>
+                            @hasrole('super admin')
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
+                                    {{ $trans->payable->name }}
+                                </td>
+                            @endhasrole
                             <td
                                 class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
                                 {{ $trans->uuid }}
@@ -68,7 +82,7 @@
                             </td>
                             <td
                                 class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400">
-                                {{ __('25 Nov, 2025') }}
+                                {{ $trans->created_at->format('d M, Y') }}
                             </td>
                         </tr>
 

@@ -3,11 +3,61 @@
 namespace App\Livewire\Wallets;
 
 use Livewire\Component;
+use Livewire\WithPagination;
+use App\Models\WalletRequest;
 
 class WalletsRequests extends Component
 {
+    use WithPagination;
+
+
+    public function getdata()
+    {
+        if (auth()->user()->hasRole('super admin')) {
+
+            return   $this->ForAdmin();
+        } else {
+            return $this->ForUser();
+        }
+    }
+
+
+    public function ForUser()
+    {
+        return WalletRequest::where('user_id', auth()->id())->orderBy('created_at', 'desc')->paginate(20);
+    }
+
+    public function ForAdmin()
+    {
+        return WalletRequest::with('user')->orderBy('created_at', 'desc')->paginate(20);
+    }
+
+
+
+
+    public function acceptRquest($id)
+    {
+        $request = WalletRequest::find($id);
+        if ($request) {
+            $request->user->deposit($request->amount);
+            $request->status = 'approved';
+            $request->save();
+            notify(__('Wallet Request Approved Successfully'), 'success', false);
+        }
+    }
+    public function rejectRquest($id)
+    {
+        $request = WalletRequest::find($id);
+        if ($request) {
+            $request->status = 'rejected';
+            $request->save();
+            notify(__('Wallet Request Rejected Successfully'), 'success', false);
+        }
+    }
+
     public function render()
     {
-        return view('livewire.wallets.wallets-requests');
+        $requests = $this->getdata();
+        return view('livewire.wallets.wallets-requests', compact('requests'));
     }
 }

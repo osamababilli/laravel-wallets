@@ -91,4 +91,10 @@ class User extends Authenticatable implements Wallet
             ]);
         });
     }
+
+
+    public function walletRequests()
+    {
+        return $this->hasMany(WalletRequest::class);
+    }
 }

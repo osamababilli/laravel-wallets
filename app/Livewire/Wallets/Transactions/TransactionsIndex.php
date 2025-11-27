@@ -4,6 +4,7 @@ namespace App\Livewire\Wallets\Transactions;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Bavix\Wallet\Models\Transaction;
 
 class TransactionsIndex extends Component
 {
@@ -11,7 +12,11 @@ class TransactionsIndex extends Component
     use WithPagination;
     public function getData()
     {
-        return  auth()->user()->transactions()->latest()->paginate(10);
+        if (auth()->user()->hasRole('super admin')) {
+            return Transaction::orderBy('created_at', 'desc')->paginate(20);
+        } else {
+            return Transaction::where('user_id', auth()->id())->orderBy('created_at', 'desc')->paginate(20);
+        }
     }
     public function render()
     {

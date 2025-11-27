@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('wallet_requests', function (Blueprint $table) {
             $table->id();
+            $table->decimal('amount', 15, 2);
+            $table->string('type');
+            $table->set('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
