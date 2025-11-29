@@ -15,7 +15,7 @@ class TransactionsIndex extends Component
         if (auth()->user()->hasRole('super admin')) {
             return Transaction::orderBy('created_at', 'desc')->paginate(20);
         } else {
-            return Transaction::where('user_id', auth()->id())->orderBy('created_at', 'desc')->paginate(20);
+            return auth()->user()->transactions()->orderBy('created_at', 'desc')->paginate(20);
         }
     }
     public function render()

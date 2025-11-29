@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Languages\LanguageIndex;
 use App\Livewire\Permissions\PermissionsCreate;
 use App\Livewire\Permissions\PermissionsEdit;
@@ -15,6 +16,7 @@ use App\Livewire\Users\UsersIndex;
 use App\Livewire\Users\UserShow;
 use App\Livewire\Logs\LogsPage;
 use App\Livewire\Translations\TranslationsManager;
+use App\Livewire\Wallets\ReciversWallets;
 use App\Livewire\Wallets\Transactions\TransactionsIndex;
 use App\Models\Translation;
 
@@ -22,17 +24,23 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 Route::middleware(['auth', 'verified', 'statusCheck'])->group(function () {
+
+    Route::get('dashboard', Dashboard::class)->name('dashboard');
+
+
     Route::redirect('settings', 'settings/profile');
 
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
     Volt::route('settings/languages', 'settings.languages')->name('settings.languages');
+
+
 
     // roles & permissions routes
     Route::get('roles', Index::class)->name('roles.index');
@@ -58,6 +66,7 @@ Route::middleware(['auth', 'verified', 'statusCheck'])->group(function () {
     Route::get('wallet-requests', \App\Livewire\Wallets\WalletsRequests::class)->name('wallet-requests.index');
     // end wallet requests routes
 
+    Route::get('crypto-wallet', ReciversWallets::class)->name('crypto-wallet.index');
 
     // Activity Logs Routes
     Route::get('activity-logs', LogsPage::class)->name('activity-logs.index');

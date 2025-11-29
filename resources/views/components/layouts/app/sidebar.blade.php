@@ -36,6 +36,16 @@
                             {{ __('All Transactions') }}
                         </flux:navlist.item>
 
+                        @hasrole('super admin')
+                            <flux:navlist.item :href="route('wallet-requests.index')"
+                                :current="request()->routeIs('wallet-requests.index')" wire:navigate>
+                                {{ __('Wallet Requests') }}
+                            </flux:navlist.item>
+                            <flux:navlist.item :href="route('crypto-wallet.index')"
+                                :current="request()->routeIs('crypto-wallet.index')" wire:navigate>
+                                {{ __('Crypto Wallet') }}
+                            </flux:navlist.item>
+                        @endhasrole
                         {{-- <flux:navlist.item :href="route('users.create')" :current="request()->routeIs('users.create')"
                             wire:navigate>
                             {{ __('Create New User') }}

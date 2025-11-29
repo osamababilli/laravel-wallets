@@ -1,38 +1,40 @@
-<x-layouts.app :title="__('Wallet Dashboard')">
+<div>
     {{-- إضافة مسافة بادئة شاملة وتغيير التباعد إلى gap-8 --}}
     {{-- **إضافة خاصية dir="rtl" لدعم اللغة العربية** --}}
 
 
 
     @php
-        $data = auth()->user()->transactions()->orderBy('created_at', 'desc')->take(5)->get();
+
     @endphp
 
     <flux:modal name="DepositModal" class="md:w-96">
         <div class="space-y-6">
             <div>
-                <flux:heading size="lg">Update profile</flux:heading>
-                <flux:text class="mt-2">Make changes to your personal details.</flux:text>
+                <flux:heading size="lg">{{ __('Deposit USDT') }}</flux:heading>
             </div>
-            <flux:input label="Name" placeholder="Your name" />
-            <flux:input label="Date of birth" type="date" />
+            <flux:input wire:model.live='depositAmount' type="number" label="{{ __('Amount') }}" />
+            <flux:select label="{{ __('Select Wallet') }}">
+                @foreach ($cryptos as $wallet)
+                    <flux:select.option value="{{ $wallet->address }}">{{ $wallet->address }}</flux:select.option>
+                @endforeach
+            </flux:select>
             <div class="flex">
                 <flux:spacer />
-                <flux:button type="submit" variant="primary">Save changes</flux:button>
+                <flux:button wire:click="deposit" type="submit" variant="primary">{{ __('submit') }}</flux:button>
             </div>
         </div>
     </flux:modal>
     <flux:modal name="WithdrawModal" class="md:w-96">
         <div class="space-y-6">
             <div>
-                <flux:heading size="lg">Update profile</flux:heading>
-                <flux:text class="mt-2">Make changes to your personal details.</flux:text>
+                <flux:heading size="lg">{{ __('Withdrawal USDT') }}</flux:heading>
             </div>
-            <flux:input label="Name" placeholder="Your name" />
-            <flux:input label="Date of birth" type="date" />
+            <flux:input wire:model.live='depositAmount' type="number" label="{{ __('Amount') }}" />
+
             <div class="flex">
                 <flux:spacer />
-                <flux:button type="submit" variant="primary">Save changes</flux:button>
+                <flux:button wire:click="Withdraw" type="submit" variant="primary">{{ __('submit') }}</flux:button>
             </div>
         </div>
     </flux:modal>
@@ -202,4 +204,5 @@
         </div>
 
     </div>
-</x-layouts.app>
+
+</div>
