@@ -21,7 +21,7 @@ use App\Livewire\Wallets\Transactions\TransactionsIndex;
 use App\Models\Translation;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 })->name('home');
 
 // Route::view('dashboard', 'dashboard')
