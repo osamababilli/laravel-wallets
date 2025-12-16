@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
+use Flux\Flux;
 
 class UsersIndex extends Component
 {
@@ -16,6 +17,10 @@ class UsersIndex extends Component
     public $search = '';
     public $perPage = 10;
     public $sortDirection = 'desc';
+
+
+    public $userId = null, $amount;
+
 
 
 
@@ -59,6 +64,25 @@ class UsersIndex extends Component
 
         notify($User->name . '  ' . __('Role Deleted Successfully'), 'success', false);
     }
+
+    public function editUserBalance($userId)
+    {
+        $this->userId = $userId;
+        Flux::modal('DepositModal')->show();
+    }
+
+
+    public function deposit()
+    {
+        $user = User::find($this->userId);
+        $user->wallets()->first()->deposit($this->amount);
+        // dd($this->userId, $this->amount);
+        notify(__('Amount Deposited Successfully'), 'success', false);
+        $this->reset(['amount', 'userId']);
+        Flux::modal('DepositModal')->close();
+    }
+
+
 
     public function render()
     {
