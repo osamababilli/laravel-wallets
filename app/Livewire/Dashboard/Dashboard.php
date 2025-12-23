@@ -62,12 +62,20 @@ class Dashboard extends Component
         // Logic to handle deposit action
         notify('Withdraw request submitted successfully', 'success', false);
     }
+
+
+    public  function FastDeposit($amount)
+    {
+        $this->depositAmount = $amount;
+
+        Flux::modal('DepositModal')->show();
+    }
     public function render()
     {
 
-
+        $Amouts = [5, 10, 15, 20, 40, 60, 80, 100];
         $cryptos = CryptoWalle::where('status', 'active')->get();
         $data = auth()->user()->transactions()->orderBy('created_at', 'desc')->take(5)->get();
-        return view('livewire.dashboard.dashboard', compact('data', 'cryptos'));
+        return view('livewire.dashboard.dashboard', compact('data', 'cryptos', 'Amouts'));
     }
 }

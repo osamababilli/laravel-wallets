@@ -1,12 +1,6 @@
 <div>
-    {{-- إضافة مسافة بادئة شاملة وتغيير التباعد إلى gap-8 --}}
-    {{-- **إضافة خاصية dir="rtl" لدعم اللغة العربية** --}}
 
 
-
-    @php
-
-    @endphp
 
     <flux:modal name="DepositModal" class="md:w-96">
         <div class="space-y-6">
@@ -93,8 +87,23 @@
             </div>
         </div>
 
+        <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
+            <!-- Box 10 USDT -->
+            @forelse ($Amouts  as $amount)
+                <div
+                    class="relative flex flex-col justify-center items-center gap-4 p-6 rounded-2xl bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50 border border-neutral-200 dark:border-zinc-700  transition-all ">
+                    <div class="text-center">
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ $amount }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">USDT</p>
+                    </div>
+                    <flux:button type="submit" wire:click="FastDeposit({{ $amount }})" variant="primary"
+                        class="w-full cursor-pointer">{{ __('Deposit') }}
+                    </flux:button>
+                </div>
+            @empty
+            @endforelse
 
-
+        </div>
 
         {{-- 🧾 أحدث الحركات (Recent Transactions) - تصميم جدول Flux النظيف --}}
         <div
