@@ -15,6 +15,8 @@ use App\Livewire\Users\UserEdit;
 use App\Livewire\Users\UsersIndex;
 use App\Livewire\Users\UserShow;
 use App\Livewire\Logs\LogsPage;
+use App\Livewire\Plans\PlansCreate;
+use App\Livewire\Plans\PlansList;
 use App\Livewire\Translations\TranslationsManager;
 use App\Livewire\Wallets\ReciversWallets;
 use App\Livewire\Wallets\Transactions\TransactionsIndex;
@@ -67,6 +69,16 @@ Route::middleware(['auth'])->group(function () {
     // end wallet requests routes
 
     Route::get('crypto-wallet', ReciversWallets::class)->name('crypto-wallet.index');
+
+
+
+    // Plans routes
+    Route::get('plans', PlansList::class)->name('plans.index');
+
+
+
+
+
 
     // Activity Logs Routes
     Route::get('activity-logs', LogsPage::class)->name('activity-logs.index');

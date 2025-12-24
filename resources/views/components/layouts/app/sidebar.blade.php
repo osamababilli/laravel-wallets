@@ -116,6 +116,23 @@
                     </flux:navlist.group>
                 @endif
 
+
+
+                @hasrole('super admin')
+                    <flux:navlist.group :heading="__('Plans Management')" class="mt-3 space-y-1">
+                        <flux:navlist variant="outline">
+                            <flux:navlist.item icon="square-chart-gantt" :href="route('plans.index')" wire:navigate
+                                :current="request()->routeIs('plans.index')">
+                                {{ __('All Plans') }}
+                            </flux:navlist.item>
+
+
+                        </flux:navlist>
+
+
+                    </flux:navlist.group>
+                @endhasrole
+
             </flux:navlist>
 
             <flux:spacer />
