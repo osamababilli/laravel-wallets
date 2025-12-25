@@ -26,8 +26,24 @@
                         :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
+
+
                 </flux:navlist.group>
 
+
+                <flux:navlist.group :heading="__('Investment')" class="space-y-1">
+
+                    <flux:navlist.item icon="circle-dollar-sign" :href="route('users.plans.index')"
+                        :current="request()->routeIs('users.plans.index')" wire:navigate>
+                        {{ __('View Plans') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="circle-dollar-sign" :href="route('users.investments.index')"
+                        :current="request()->routeIs('users.investments.index')" wire:navigate>
+                        {{ __('My Investments') }}
+                    </flux:navlist.item>
+
+                </flux:navlist.group>
 
                 <flux:navlist.group :heading="__('Wallet Management')" class="mt-3 space-y-1">
                     <flux:navlist.group expandable :expanded="false" heading="{{ __('Wallet') }}">

@@ -17,10 +17,13 @@ use App\Livewire\Users\UserShow;
 use App\Livewire\Logs\LogsPage;
 use App\Livewire\Plans\PlansCreate;
 use App\Livewire\Plans\PlansList;
+use App\Livewire\Plans\UsersPlans\PlansList as UsersPlansPlansList;
 use App\Livewire\Translations\TranslationsManager;
 use App\Livewire\Wallets\ReciversWallets;
 use App\Livewire\Wallets\Transactions\TransactionsIndex;
 use App\Models\Translation;
+use App\Livewire\Plans\UsersPlans\MyInvestments;
+
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -77,7 +80,11 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    // Users Plans routes
+    Route::get('view-plans', UsersPlansPlansList::class)->name('users.plans.index');
 
+    // Users inverstments
+    Route::get('my-investments', MyInvestments::class)->name('users.investments.index');
 
 
     // Activity Logs Routes
