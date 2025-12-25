@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($inverstments as $inverstment)
+                    @forelse ($members as $inverstment)
                         <tr class="border-b dark:border-gray-700">
                             <th scope="row"
                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -180,22 +180,6 @@
                                             </svg>
                                             <span class="mx-1"> {{ __('Withdraw Profit') }}</span>
                                         </a>
-
-                                        <a href="javascript:void(0)"
-                                            wire:click="leaveInvestment('{{ $inverstment->id }}' , '{{ $currentProfit }}')"
-                                            class="flex items-center justify-center text-xs
-                                            hover:text-red-500 hover:bg-gray-200/25 hover:rounded-md
-                                            p-1.5 transition-[color,background-color,border-radius] duration-200 ease-in-out">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-log-out-icon lucide-log-out">
-                                                <path d="m16 17 5-5-5-5" />
-                                                <path d="M21 12H9" />
-                                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                                            </svg>
-                                            <span class="ml-1">{{ __('Leave Investment') }}</span>
-                                        </a>
                                     @endif
                                 </div>
                             </td>
@@ -224,7 +208,7 @@
                 </tbody>
             </table>
         </div>
-
+        {{ $members->links() }}
 
     </div>
 </div>

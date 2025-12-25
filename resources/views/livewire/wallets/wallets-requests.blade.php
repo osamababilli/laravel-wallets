@@ -27,7 +27,7 @@
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                            {{ __('TXID') }}
+                            {{ __('USER') }}
                         </th>
                         {{-- المحاذاة أصبحت text-center(يسار في RTL) --}}
                         <th scope="col"

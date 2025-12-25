@@ -13,7 +13,8 @@ class Member extends Model
     protected $fillable = [
         'user_id',
         'plan_id',
-        'status'
+        'status',
+        'last_withdrawal_at'
     ];
 
 

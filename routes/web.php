@@ -23,6 +23,8 @@ use App\Livewire\Wallets\ReciversWallets;
 use App\Livewire\Wallets\Transactions\TransactionsIndex;
 use App\Models\Translation;
 use App\Livewire\Plans\UsersPlans\MyInvestments;
+use App\Livewire\Members\MembersList;
+
 
 
 Route::get('/', function () {
@@ -86,6 +88,9 @@ Route::middleware(['auth'])->group(function () {
     // Users inverstments
     Route::get('my-investments', MyInvestments::class)->name('users.investments.index');
 
+
+    // Members routes
+    Route::get('members', MembersList::class)->name('members.index');
 
     // Activity Logs Routes
     Route::get('activity-logs', LogsPage::class)->name('activity-logs.index');

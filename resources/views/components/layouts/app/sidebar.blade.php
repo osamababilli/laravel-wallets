@@ -135,13 +135,17 @@
 
 
                 @hasrole('super admin')
-                    <flux:navlist.group :heading="__('Plans Management')" class="mt-3 space-y-1">
+                    <flux:navlist.group :heading="__('Plans and Members Management')" class="mt-3 space-y-1">
                         <flux:navlist variant="outline">
                             <flux:navlist.item icon="square-chart-gantt" :href="route('plans.index')" wire:navigate
                                 :current="request()->routeIs('plans.index')">
                                 {{ __('All Plans') }}
                             </flux:navlist.item>
 
+                            <flux:navlist.item icon="users" :href="route('members.index')" wire:navigate
+                                :current="request()->routeIs('members.index')">
+                                {{ __('All Members') }}
+                            </flux:navlist.item>
 
                         </flux:navlist>
 
