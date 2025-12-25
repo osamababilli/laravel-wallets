@@ -114,7 +114,7 @@ class roles_permission extends Seeder
 
 
         foreach ($arabic_translations as $key => $value) {
-            Translation::firstOrCreate(
+            Translation::updateOrCreate(
                 ['key' => $key, 'locale' => 'ar'],
                 ['value' => $value]
             );
