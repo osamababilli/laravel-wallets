@@ -46,7 +46,7 @@
 
                             {{-- @dd($inverstment->plan->name) --}}
                             <td class="px-4 py-3">{{ $inverstment->plan->amount }} USDT</td>
-                            <td class="px-4 py-3">{{ \Str::ucfirst($inverstment->plan->type) }}
+                            <td class="px-4 py-3">{{ __(\Str::ucfirst($inverstment->plan->type)) }}
                                 {{ $inverstment->plan->profit }} USDT </td>
                             <td class="px-4 py-3">
 
