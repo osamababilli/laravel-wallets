@@ -19,6 +19,9 @@ class EditRole extends Component
 
     public function mount($role)
     {
+        $this->authorize('update', Role::class);
+
+
         $this->role = $role;
         $roleData = Role::find($role);
         $this->roleData = $roleData;

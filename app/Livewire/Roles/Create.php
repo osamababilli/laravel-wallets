@@ -17,6 +17,12 @@ class Create extends Component
     public $selectedPermissions = [];
     public $selectAll = false;
 
+
+
+    public function mount()
+    {
+        $this->authorize('create', Role::class);
+    }
     public function createRole()
     {
 
