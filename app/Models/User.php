@@ -33,6 +33,8 @@ class User extends Authenticatable implements Wallet
         'password',
         'phone',
         'status',
+        'invite_code',
+        'referral_code',
     ];
 
     /**

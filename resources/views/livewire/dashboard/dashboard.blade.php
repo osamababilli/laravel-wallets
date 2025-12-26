@@ -34,6 +34,32 @@
     </flux:modal>
     <div class="flex h-full w-full flex-col gap-8 p-4 sm:p-6">
 
+        @if (!empty($invite_code))
+            <div class="mt-8 flex flex-col items-center gap-3">
+                <span class="text-sm font-medium tracking-wide text-gray-500">
+                    {{ __('Your Invite Code') }}
+                </span>
+
+                <div
+                    class="flex items-center gap-2 rounded-xl bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-3 shadow-lg">
+                    <span id="inviteCode" class="select-all font-mono text-xl tracking-widest text-white">
+                        {{ $invite_code }}
+                    </span>
+
+                    <button onclick="navigator.clipboard.writeText('{{ $invite_code }}')"
+                        class="rounded-lg bg-white/10 px-3 py-2 text-xs font-semibold text-white backdrop-blur hover:bg-white/20 transition">
+                        {{ __('Copy') }}
+                    </button>
+                </div>
+
+                <p class="text-xs text-gray-400 text-center max-w-xs">
+                    {{ __('Share your invite code with your friends to get USDT') }}
+                </p>
+            </div>
+        @endif
+
+
+
         {{-- مجموعة البطاقات الرئيسية والأزرار - Grid ثلاثي الأعمدة (md:grid-cols-3) --}}
         <div class="grid gap-6 md:grid-cols-3">
 
@@ -195,6 +221,8 @@
                 </flux:button>
             </div>
         </div>
+
+
 
     </div>
 

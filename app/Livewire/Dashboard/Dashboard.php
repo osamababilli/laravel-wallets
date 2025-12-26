@@ -73,9 +73,9 @@ class Dashboard extends Component
     public function render()
     {
 
-        $Amouts = [20, 90, 200, 400, 600, 60, 80, 100];
+        $invite_code = auth()->user()->invite_code;
         $cryptos = CryptoWalle::where('status', 'active')->get();
         $data = auth()->user()->transactions()->orderBy('created_at', 'desc')->take(5)->get();
-        return view('livewire.dashboard.dashboard', compact('data', 'cryptos', 'Amouts'));
+        return view('livewire.dashboard.dashboard', compact('data', 'cryptos', 'invite_code'));
     }
 }

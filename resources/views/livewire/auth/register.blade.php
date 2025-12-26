@@ -7,13 +7,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Illuminate\Support\Str;
 
 new #[Layout('components.layouts.auth')] class extends Component {
     public string $name = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public string $referral_code = '';
 
+    public function randomInviteCode(): string
+    {
+        do {
+            $code = strtoupper(substr(Str::random(3), 0, 3) . '-' . substr(Str::random(3), 0, 3));
+        } while (User::where('invite_code', $code)->exists());
+
+        return $code;
+    }
     /**
      * Handle an incoming registration request.
      */
@@ -23,6 +33,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'referral_code' => ['nullable', 'string', 'max:255'],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -30,6 +41,9 @@ new #[Layout('components.layouts.auth')] class extends Component {
         event(new Registered(($user = User::create($validated))));
 
         $user->assignRole('user');
+
+        $user->invite_code = $this->randomInviteCode();
+        $user->save();
 
         Auth::login($user);
 
@@ -59,6 +73,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <!-- Confirm Password -->
         <flux:input wire:model="password_confirmation" :label="__('Confirm password')" type="password" required
             autocomplete="new-password" :placeholder="__('Confirm password')" viewable />
+
+
+        <!-- referral_code -->
+        <flux:input wire:model="referral_code" :label="__('Referral Code')" type="text" required
+            :placeholder="__('Referral Code')" />
+
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">
