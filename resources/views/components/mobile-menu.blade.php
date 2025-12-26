@@ -13,14 +13,16 @@
     <div class="flex justify-around items-center h-16">
 
         <!-- Dashboard -->
-        <a href="https://tkwencash.com" class="group flex flex-col items-center text-xs transition-all duration-300">
+        <a href="https://tkwencash.com"
+            class="group flex flex-col items-center text-xs transition-all duration-300
+         {{ request()->routeIs('plans.index') ? $active : $inactive }}"">
 
             <flux:icon name="home"
                 class="w-6 h-6 transition-transform duration-300
                 group-hover:-translate-y-1" />
 
             <span class="mt-1">
-                {{ __('Dashboard') }}
+                {{ __('الصفحة الرئيسة') }}
             </span>
         </a>
 
