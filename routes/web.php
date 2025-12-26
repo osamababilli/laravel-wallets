@@ -24,6 +24,8 @@ use App\Livewire\Wallets\Transactions\TransactionsIndex;
 use App\Models\Translation;
 use App\Livewire\Plans\UsersPlans\MyInvestments;
 use App\Livewire\Members\MembersList;
+use App\Livewire\Members\ProfitWithdrawals\ProfitWithdrawalsList;
+
 
 
 
@@ -91,6 +93,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Members routes
     Route::get('members', MembersList::class)->name('members.index');
+
+
+
+
+    //investments  ProfitWithdrawal  routes
+    Route::get('profit-withdrawals', ProfitWithdrawalsList::class)->name('profit-withdrawals.index');
+
 
     // Activity Logs Routes
     Route::get('activity-logs', LogsPage::class)->name('activity-logs.index');

@@ -25,6 +25,13 @@ class roles_permission extends Seeder
             $role = Role::where('name', 'super admin')->first();
         }
 
+        if (!Role::where('name', 'user')->exists()) {
+            Role::create(['name' => 'user', 'guard_name' => 'web']);
+        } else {
+            Role::where('name', 'user')->first();
+        }
+
+
         $permissions = [
 
 

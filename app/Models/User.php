@@ -97,4 +97,11 @@ class User extends Authenticatable implements Wallet
     {
         return $this->hasMany(WalletRequest::class);
     }
+
+
+
+    public function profitWithdrawals()
+    {
+        return $this->hasMany(ProfitWithdrawal::class);
+    }
 }

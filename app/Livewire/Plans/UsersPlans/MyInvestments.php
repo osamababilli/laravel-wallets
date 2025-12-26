@@ -3,6 +3,7 @@
 namespace App\Livewire\Plans\UsersPlans;
 
 use App\Models\Member;
+use App\Models\ProfitWithdrawal;
 use Livewire\Component;
 use App\Models\WalletRequest;
 
@@ -16,17 +17,14 @@ class MyInvestments extends Component
     {
 
 
-        WalletRequest::create([
+        ProfitWithdrawal::create([
             'amount' => $amount,
-            'type' => 'withdraw',
-            'status' => 'pending',
+            'member_id' => $id,
             'user_id' => auth()->user()->id,
-        ]);
-
-        Member::where('id', $id)->update([
-            'last_withdrawal_at' => now()
 
         ]);
+
+
 
 
 

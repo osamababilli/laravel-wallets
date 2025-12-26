@@ -1,5 +1,17 @@
 <div>
 
+    <!-- Header -->
+    <div class="space-y-2 mb-5">
+        <flux:heading size="xl">
+            {{ __('Users') }}
+        </flux:heading>
+
+        <flux:subheading>
+            {{ __('All Users and Management') }}
+        </flux:subheading>
+
+        <flux:separator class="mt-5" />
+    </div>
     <!-- Start coding here -->
     <div class="bg-white dark:bg-zinc-800  relative  overflow-hidden">
 

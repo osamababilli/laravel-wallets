@@ -1,4 +1,13 @@
 <div>
+    {{-- رأس البطاقة --}}
+    <div class="p-6 border-b border-neutral-100 dark:border-zinc-700/50">
+        <flux:heading size="xl" class="font-semibold text-gray-800 dark:text-white">
+            {{ __('Crypto Wallet') }}
+        </flux:heading>
+        <flux:subheading class="mt-1 text-gray-500 dark:text-gray-400">
+            {{ __('All Crypto Wallets and management') }}
+        </flux:subheading>
+    </div>
 
     <!-- Start coding here -->
     <div class="bg-white dark:bg-zinc-800  relative  overflow-hidden">
@@ -139,7 +148,8 @@
                             </label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-2" wire:model.live="sortDirection" type="radio" value="asc"
+                            <input id="default-radio-2" wire:model.live="sortDirection" type="radio"
+                                value="asc"
                                 class="w-4 h-4 text-blue-600 border-zinc-300
                        focus:ring-blue-500 dark:focus:ring-blue-600
                        dark:ring-offset-zinc-800 focus:ring-2

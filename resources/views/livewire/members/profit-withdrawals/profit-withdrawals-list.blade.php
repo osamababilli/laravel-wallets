@@ -1,12 +1,16 @@
 <div>
-    {{-- رأس البطاقة --}}
-    <div class="py-6 border-b border-neutral-100 dark:border-zinc-700/50 mb-5">
-        <flux:heading size="xl" class="font-semibold text-gray-800 dark:text-white">
-            {{ __('Wallet Requests') }}
+
+    <!-- Header -->
+    <div class="space-y-2 mb-5">
+        <flux:heading size="xl">
+            {{ __('Profit Withdrawals History') }}
         </flux:heading>
-        <flux:subheading class="mt-1 text-gray-500 dark:text-gray-400">
-            {{ __('All Wallet Requests') }}
+
+        <flux:subheading>
+            {{ __('All Profit Withdrawals') }}
         </flux:subheading>
+
+        <flux:separator class="mt-5" />
     </div>
 
 
@@ -25,7 +29,7 @@
                         {{-- المحاذاة أصبحت text-center (يمين في RTL) --}}
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                            {{ __('Type') }}
+                            {{ __('Plan name') }}
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -34,8 +38,14 @@
                         {{-- المحاذاة أصبحت text-center(يسار في RTL) --}}
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                            {{ __('Amount') }}
+                            {{ __('Profit') }}
                         </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            {{ __('Status') }}
+                        </th>
+
+
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             {{ __('Date') }}
@@ -52,20 +62,15 @@
                 {{-- جسم الجدول --}}
                 <tbody class="divide-y divide-neutral-100 dark:divide-zinc-700/50">
 
-                    @forelse ($requests as $trans)
+                    @forelse ($history as $trans)
                         {{-- الحركة 1: إيداع --}}
                         <tr class="hover:bg-neutral-50/50 dark:hover:bg-zinc-700/50 transition duration-150">
                             <td class="px-6 flex flex-col items-center  py-4 whitespace-nowrap">
-                                <span
-                                    class="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-sm font-medium @if ($trans->type == 'deposit') text-green-800 dark:text-green-400 dark:bg-green-900/50  @else bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-400 @endif">
-                                    {{-- **استخدام me-2 (margin-end)** لدعم RTL --}}
-                                    <flux:icon name="banknotes" class="size-4 me-2" />
-                                    @if ($trans->type == 'deposit')
-                                        {{ __('Deposit') }}
-                                    @else
-                                        {{ __('Withdrawal') }}
-                                    @endif
-                                </span>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ $trans->investment->plan->name }} </div>
+
+
+
                             </td>
                             @hasrole('super admin')
                                 <td
@@ -74,13 +79,28 @@
                                 </td>
                             @endhasrole
                             <td
-                                class="px-6 py-4 whitespace-nowrap text-center text-base font-semibold @if ($trans->type == 'deposit') text-green-600  dark:text-green-400 @else text-red-600 dark:text-red-400 @endif ">
+                                class="px-6 py-4 whitespace-nowrap text-center text-base font-semibold  text-green-600  dark:text-green-400 ">
                                 {{ $trans->amount }} USDT
+                            </td>
+
+
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-base font-semibold ">
+                                <span>
+                                    @if ($trans->status == 'pending')
+                                        <flux:badge variant="pill" color="yellow">{{ __('Pending') }}</flux:badge>
+                                    @elseif($trans->status == 'approved')
+                                        <flux:badge variant="pill" color="green">{{ __('Approved') }}</flux:badge>
+                                    @elseif($trans->status == 'rejected')
+                                        <flux:badge variant="pill" color="red">{{ __('Rejected') }}</flux:badge>
+                                    @endif
+                                </span>
                             </td>
                             <td
                                 class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400">
                                 {{ $trans->created_at->format('d M, Y') }}
                             </td>
+
+
                             @hasrole('super admin')
                                 <td class="px-4 py-3 flex items-center justify-center">
                                     @if ($trans->status == 'pending')
@@ -132,13 +152,33 @@
                         </tr>
 
                     @empty
+
+                        <tr>
+                            <td colspan="5" class="px-4 py-12 text-center ">
+                                <div class="flex flex-row items-center justify-center gap-2">
+                                    <span>
+                                        <svg class="w-8 h-8 text-gray-400" aria-hidden="true" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path
+                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        {{ __('No data found') }}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+
                     @endforelse
 
 
                 </tbody>
 
             </table>
-            {{ $requests->links() }}
+            {{ $history->links() }}
         </div>
 
 

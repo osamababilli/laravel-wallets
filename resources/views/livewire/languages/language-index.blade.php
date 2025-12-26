@@ -1,5 +1,16 @@
 <div>
+    <!-- Header -->
+    <div class="space-y-2 mb-5">
+        <flux:heading size="xl">
+            {{ __('Languages') }}
+        </flux:heading>
 
+        <flux:subheading>
+            {{ __('All Languages Management and Translations') }}
+        </flux:subheading>
+
+        <flux:separator class="mt-5" />
+    </div>
     <!-- Start coding here -->
     <div class="bg-white dark:bg-zinc-800  relative  overflow-hidden">
         <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -41,7 +52,7 @@
                                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path clip-rule="evenodd" fill-rule="evenodd"
                                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2
-                                                                                                                                                                                                                          0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                                                                                                                                                                                                                      0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                 </svg>
                                 {{ __('Add New Language') }}
                             </a>
