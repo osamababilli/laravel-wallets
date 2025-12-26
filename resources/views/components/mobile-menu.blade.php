@@ -13,9 +13,7 @@
     <div class="flex justify-around items-center h-16">
 
         <!-- Dashboard -->
-        <a href="https://tkwencash.com"
-            class="group flex flex-col items-center text-xs transition-all duration-300
-           {{ request()->routeIs('dashboard') ? $active : $inactive }}">
+        <a href="https://tkwencash.com" class="group flex flex-col items-center text-xs transition-all duration-300">
 
             <flux:icon name="home"
                 class="w-6 h-6 transition-transform duration-300
