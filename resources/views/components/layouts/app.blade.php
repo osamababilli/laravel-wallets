@@ -18,10 +18,9 @@
         @endif --}}
 
         <livewire:notification />
-
+        <x-mobile-menu />
         {{-- @filamentStyles
         @filamentScripts --}}
-
         {{ $slot }}
     </flux:main>
 </x-layouts.app.sidebar>
