@@ -57,7 +57,7 @@ class WithdrawRequests extends Component
             $request->status = 'rejected';
             $request->save();
 
-            notify(__('Withdraw Request Rejected Successfully and Refunded'), 'success', false);
+            notify(__('تم رفض طلب السحب بنجاح'), 'success', false);
         }
     }
 

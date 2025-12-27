@@ -256,5 +256,7 @@
     "All Roles and Management": "جميع الأدوار وإدارتها",
     "All Users and Management": "جميع المستخدمين وإدارتهم",
     "All Crypto Wallets and management": "جميع محافظ العملات الرقمية",
-    "Profit History": "سجل الأرباح"
+    "Profit History": "سجل الأرباح",
+    "Wallet Deposit Requests": "طلبات إيداع المحفظة",
+    "Withdraw Requests": "طلبات السحب"
 }

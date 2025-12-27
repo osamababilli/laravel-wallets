@@ -33,7 +33,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-            'referral_code' => ['required', 'string', 'max:255'],
+            'referral_code' => ['required', 'string', 'max:255', 'exists:' . User::class . ',invite_code'],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
