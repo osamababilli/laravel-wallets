@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Plans\UsersPlans;
 
+use App\Livewire\Dashboard\Dashboard;
 use App\Models\Plan;
 use Livewire\Component;
 
@@ -26,8 +27,12 @@ class PlansList extends Component
 
 
         if ($plan->amount > auth()->user()->balance) {
-            notify(__('Insufficient Balance'), 'warning', false);
-            return;
+
+            session()->flash('wallet_error', [
+                'amount'  => $plan->amount
+            ]);
+
+            return redirect()->route('dashboard');
         }
 
 

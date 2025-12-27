@@ -6,6 +6,7 @@ use App\Models\CryptoWalle;
 use App\Models\WalletRequest;
 use Flux\Flux;
 use Illuminate\Container\Attributes\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -14,6 +15,21 @@ class Dashboard extends Component
     public $depositAmount, $selectedWallet;
 
 
+
+
+
+    public function mount()
+    {
+        if (session()->has('wallet_error')) {
+
+            $data = session('wallet_error');
+
+            $this->dispatch(
+                'insufficientBalance',
+                amount: $data['amount']
+            );
+        }
+    }
     public function deposit()
     {
 
@@ -38,6 +54,16 @@ class Dashboard extends Component
         Flux::modal('DepositModal')->close();
         // Logic to handle deposit action
         notify('Deposit request submitted successfully', 'success', false);
+    }
+
+
+    #[On('insufficientBalance')]
+    public function insufficientBalance($amount)
+    {
+
+
+        $this->depositAmount = $amount;
+        Flux::modal('DepositModal')->show();
     }
 
 

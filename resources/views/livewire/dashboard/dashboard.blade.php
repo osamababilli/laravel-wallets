@@ -2,7 +2,7 @@
 
 
 
-    <flux:modal name="DepositModal" class="md:w-96">
+    <flux:modal name="DepositModal" class="w-96 md:w-100">
         <div class="space-y-6">
             <div>
                 <flux:heading size="lg">{{ __('Deposit USDT') }}</flux:heading>
@@ -19,7 +19,7 @@
             </div>
         </div>
     </flux:modal>
-    <flux:modal name="WithdrawModal" class="md:w-96">
+    <flux:modal name="WithdrawModal" class="w-96 md:w-100">
         <div class="space-y-6">
             <div>
                 <flux:heading size="lg">{{ __('Withdrawal USDT') }}</flux:heading>
