@@ -132,6 +132,9 @@ class PlansList extends Component
 
     public function render()
     {
+        if (!auth()->user()->role->name == 'super admin') {
+            abort(403);
+        }
 
         $plans = $this->getdata();
         return view('livewire.plans.plans-list', compact('plans'));

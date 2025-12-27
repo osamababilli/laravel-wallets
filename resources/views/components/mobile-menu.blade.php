@@ -27,9 +27,9 @@
         </a>
 
         <!-- Investment -->
-        <a href="{{ route('plans.index') }}"
+        <a href="{{ route('users.plans.index') }}"
             class="group flex flex-col items-center text-xs transition-all duration-300
-           {{ request()->routeIs('plans.index') ? $active : $inactive }}">
+           {{ request()->routeIs('users.plans.index') ? $active : $inactive }}">
 
             <flux:icon name="chart-bar"
                 class="w-6 h-6 transition-transform duration-300
