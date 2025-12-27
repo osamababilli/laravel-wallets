@@ -14,7 +14,8 @@
         <flux:sidebar sticky stashable
             class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 w-64 flex flex-col">
             <div class="flex items-center justify-between px-4 py-3">
-                <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+                <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 rtl:space-x-reverse"
+                    wire:navigate>
                     <x-app-logo />
                 </a>
                 <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
@@ -22,8 +23,8 @@
 
             <flux:navlist variant="outline" class="px-2">
                 <flux:navlist.group :heading="__('Platform')" class="space-y-1">
-                    <flux:navlist.item icon="home" :href="route('dashboard')"
-                        :current="request()->routeIs('dashboard')" wire:navigate>
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                        wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:navlist.item>
 
@@ -31,24 +32,24 @@
                 </flux:navlist.group>
 
                 @hasrole('user')
-                    <flux:navlist.group :heading="__('Investment')" class="space-y-1">
+                <flux:navlist.group :heading="__('Investment')" class="space-y-1">
 
-                        <flux:navlist.item icon="circle-dollar-sign" :href="route('users.plans.index')"
-                            :current="request()->routeIs('users.plans.index')" wire:navigate>
-                            {{ __('View Plans') }}
-                        </flux:navlist.item>
+                    <flux:navlist.item icon="circle-dollar-sign" :href="route('users.plans.index')"
+                        :current="request()->routeIs('users.plans.index')" wire:navigate>
+                        {{ __('View Plans') }}
+                    </flux:navlist.item>
 
-                        <flux:navlist.item icon="circle-dollar-sign" :href="route('users.investments.index')"
-                            :current="request()->routeIs('users.investments.index')" wire:navigate>
-                            {{ __('My Investments') }}
-                        </flux:navlist.item>
+                    <flux:navlist.item icon="circle-dollar-sign" :href="route('users.investments.index')"
+                        :current="request()->routeIs('users.investments.index')" wire:navigate>
+                        {{ __('My Investments') }}
+                    </flux:navlist.item>
 
 
-                        <flux:navlist.item icon="history" :href="route('profit-withdrawals.index')" wire:navigate
-                            :current="request()->routeIs('profit-withdrawals.index')">
-                            {{ __('Profit  History') }}
-                        </flux:navlist.item>
-                    </flux:navlist.group>
+                    <flux:navlist.item icon="history" :href="route('profit-withdrawals.index')" wire:navigate
+                        :current="request()->routeIs('profit-withdrawals.index')">
+                        {{ __('Profit  History') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
                 @endhasrole
                 <flux:navlist.group :heading="__('Wallet Management')" class="mt-3 space-y-1">
                     <flux:navlist.group expandable :expanded="false" heading="{{ __('Wallet') }}">
@@ -58,17 +59,21 @@
                         </flux:navlist.item>
 
                         @hasrole('super admin')
-                            <flux:navlist.item :href="route('wallet-requests.index')"
-                                :current="request()->routeIs('wallet-requests.index')" wire:navigate>
-                                {{ __('Wallet Requests') }}
-                            </flux:navlist.item>
-                            <flux:navlist.item :href="route('crypto-wallet.index')"
-                                :current="request()->routeIs('crypto-wallet.index')" wire:navigate>
-                                {{ __('Crypto Wallet') }}
-                            </flux:navlist.item>
+                        <flux:navlist.item :href="route('wallet-requests.index')"
+                            :current="request()->routeIs('wallet-requests.index')" wire:navigate>
+                            {{ __('Wallet Deposit Requests') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item :href="route('withdraw-requests.index')"
+                            :current="request()->routeIs('withdraw-requests.index')" wire:navigate>
+                            {{ __('Withdraw Requests') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item :href="route('crypto-wallet.index')"
+                            :current="request()->routeIs('crypto-wallet.index')" wire:navigate>
+                            {{ __('Crypto Wallet') }}
+                        </flux:navlist.item>
                         @endhasrole
-                        {{-- <flux:navlist.item :href="route('users.create')" :current="request()->routeIs('users.create')"
-                            wire:navigate>
+                        {{-- <flux:navlist.item :href="route('users.create')"
+                            :current="request()->routeIs('users.create')" wire:navigate>
                             {{ __('Create New User') }}
                         </flux:navlist.item> --}}
 
@@ -95,13 +100,13 @@
                 @if (auth()->user()->can('view roles') || auth()->user()->can('view permissions'))
                     <flux:navlist.group :heading="__('Roles & Permissions')" class="mt-3 space-y-1">
                         <flux:navlist.group expandable :expanded="false" heading="{{ __('Roles') }}">
-                            <flux:navlist.item :href="route('roles.index')"
-                                :current="request()->routeIs('roles.index')" wire:navigate>
+                            <flux:navlist.item :href="route('roles.index')" :current="request()->routeIs('roles.index')"
+                                wire:navigate>
                                 {{ __('All Roles') }}
                             </flux:navlist.item>
                             @can('create role')
-                                <flux:navlist.item :href="route('roles.create')"
-                                    :current="request()->routeIs('roles.create')" wire:navigate>
+                                <flux:navlist.item :href="route('roles.create')" :current="request()->routeIs('roles.create')"
+                                    wire:navigate>
                                     {{ __('Create New Role') }}
                                 </flux:navlist.item>
                             @endcan
@@ -140,29 +145,29 @@
 
 
                 @hasrole('super admin')
-                    <flux:navlist.group :heading="__('Plans and Members Management')" class="mt-3 space-y-1">
-                        <flux:navlist variant="outline">
-                            <flux:navlist.item icon="square-chart-gantt" :href="route('plans.index')" wire:navigate
-                                :current="request()->routeIs('plans.index')">
-                                {{ __('All Plans') }}
-                            </flux:navlist.item>
+                <flux:navlist.group :heading="__('Plans and Members Management')" class="mt-3 space-y-1">
+                    <flux:navlist variant="outline">
+                        <flux:navlist.item icon="square-chart-gantt" :href="route('plans.index')" wire:navigate
+                            :current="request()->routeIs('plans.index')">
+                            {{ __('All Plans') }}
+                        </flux:navlist.item>
 
-                            <flux:navlist.item icon="users" :href="route('members.index')" wire:navigate
-                                :current="request()->routeIs('members.index')">
-                                {{ __('All Members') }}
-                            </flux:navlist.item>
+                        <flux:navlist.item icon="users" :href="route('members.index')" wire:navigate
+                            :current="request()->routeIs('members.index')">
+                            {{ __('All Members') }}
+                        </flux:navlist.item>
 
-                            <flux:navlist.item icon="history" :href="route('profit-withdrawals.index')" wire:navigate
-                                :current="request()->routeIs('profit-withdrawals.index')">
-                                {{ __('Profit  History') }}
-                            </flux:navlist.item>
-
-
-
-                        </flux:navlist>
+                        <flux:navlist.item icon="history" :href="route('profit-withdrawals.index')" wire:navigate
+                            :current="request()->routeIs('profit-withdrawals.index')">
+                            {{ __('Profit  History') }}
+                        </flux:navlist.item>
 
 
-                    </flux:navlist.group>
+
+                    </flux:navlist>
+
+
+                </flux:navlist.group>
                 @endhasrole
 
             </flux:navlist>
@@ -244,7 +249,7 @@
                     </flux:modal.trigger>
 
                     <flux:modal name="notifications" variant="flyout">
-                        {{--  notifications header  --}}
+                        {{-- notifications header --}}
                         <div class="space-y-6">
                             <div>
                                 <flux:heading size="lg">{{ __('Notifications') }}</flux:heading>
@@ -254,7 +259,7 @@
                             </div>
                             <flux:separator />
 
-                            {{--  single notification  --}}
+                            {{-- single notification --}}
                             <div
                                 class="flex items-center gap-4  bg-white p-4  dark:border-zinc-700 dark:bg-zinc-800 max-w-sm">
                                 <!-- أيقونة الإشعار -->

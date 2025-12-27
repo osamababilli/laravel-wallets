@@ -74,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
     // end transactions routes
     // wallet requests routes
     Route::get('wallet-requests', \App\Livewire\Wallets\WalletsRequests::class)->name('wallet-requests.index');
+    Route::get('withdraw-requests', \App\Livewire\Wallets\WithdrawRequests::class)->name('withdraw-requests.index');
     // end wallet requests routes
 
     Route::get('crypto-wallet', ReciversWallets::class)->name('crypto-wallet.index');
