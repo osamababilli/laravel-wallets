@@ -25,7 +25,8 @@ use App\Models\Translation;
 use App\Livewire\Plans\UsersPlans\MyInvestments;
 use App\Livewire\Members\MembersList;
 use App\Livewire\Members\ProfitWithdrawals\ProfitWithdrawalsList;
-
+use App\Livewire\DepositPage;
+use App\Livewire\WithdrawPage;
 
 
 
@@ -103,6 +104,14 @@ Route::middleware(['auth'])->group(function () {
 
     // Activity Logs Routes
     Route::get('activity-logs', LogsPage::class)->name('activity-logs.index');
+
+
+
+    // deposit page
+    Route::get('deposit-page', DepositPage::class)->name('deposit-page.index');
+
+    // withdraw page
+    Route::get('withdraw-page', WithdrawPage::class)->name('withdraw-page.index');
 
 
     // language routes

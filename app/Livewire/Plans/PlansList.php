@@ -132,7 +132,7 @@ class PlansList extends Component
 
     public function render()
     {
-        if (!auth()->user()->role->name == 'super admin') {
+        if (!auth()->user()->hasrole('super admin')) {
             abort(403);
         }
 

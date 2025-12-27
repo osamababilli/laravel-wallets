@@ -16,6 +16,15 @@ class ReciversWallets extends Component
     public $walletName, $walletAddress, $walletStatus;
     public $idToBeEdit;
 
+
+
+
+    public function mount()
+    {
+        if (!auth()->user()->hasrole('super admin')) {
+            abort(403);
+        }
+    }
     public function openEditModal($id)
     {
 
@@ -90,6 +99,9 @@ class ReciversWallets extends Component
     }
     public function render()
     {
+
+
+
 
         $wallets = CryptoWalle::paginate(20);
         return view('livewire.wallets.recivers-wallets', compact('wallets'));
