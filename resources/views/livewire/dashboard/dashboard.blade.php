@@ -64,8 +64,7 @@
         <div class="grid gap-6 md:grid-cols-3">
 
             {{-- 💳 بطاقة المحفظة الرئيسية (الرصيد) - تصميم نظيف --}}
-            <div
-                class="relative p-6 rounded-2xl min-h-48 md:col-span-2
+            <div class="relative p-6 rounded-2xl min-h-48 md:col-span-2
                        bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
                        border border-neutral-200 dark:border-zinc-700">
 
@@ -73,8 +72,7 @@
                     <div class="mb-4">
                         <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('USDT Wallet') }}
                         </flux:subheading>
-                        <flux:heading size="xl"
-                            class="font-extrabold text-3xl tracking-tight text-gray-900
+                        <flux:heading size="xl" class="font-extrabold text-3xl tracking-tight text-gray-900
                             dark:text-white">
                             {{ Auth::user()->balance ?? '0.00' }} USDT
                         </flux:heading>
@@ -91,14 +89,13 @@
 
 
             {{-- 🔗 بطاقة الإجراءات (Deposit/Withdraw) - تصميم نظيف --}}
-            <div
-                class="relative flex flex-col justify-center gap-4 p-6 rounded-2xl min-h-48
+            <div class="relative flex flex-col justify-center gap-4 p-6 rounded-2xl min-h-48
                        bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
                        border border-neutral-200 dark:border-zinc-700">
 
                 {{-- زر الإيداع (Deposit) --}}
 
-                <flux:modal.trigger name="DepositModal">
+                <!-- <flux:modal.trigger name="DepositModal">
                     <flux:button icon="arrow-down-circle" variant="primary" class="justify-center w-full">
                         {{ __('Deposit') }}
                     </flux:button>
@@ -109,7 +106,22 @@
                     <flux:button icon="arrow-up-circle" variant="primary" class="justify-center w-full">
                         {{ __('Withdraw') }}
                     </flux:button>
-                </flux:modal.trigger>
+                </flux:modal.trigger> -->
+
+
+
+                <flux:button wire:click="goToDeposit" icon="arrow-down-circle" variant="primary"
+                    class="justify-center w-full">
+                    {{ __('Deposit') }}
+                </flux:button>
+
+
+                {{-- زر السحب (Withdraw) --}}
+                <flux:button wire:click="goToWithdraw" icon="arrow-up-circle" variant="primary"
+                    class="justify-center w-full">
+                    {{ __('Withdraw') }}
+                </flux:button>
+
             </div>
         </div>
 
@@ -142,10 +154,10 @@
                                 {{ __('Type') }}
                             </th>
                             @hasrole('super admin')
-                                <th scope="col"
-                                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                    {{ __('User') }}
-                                </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                {{ __('User') }}
+                            </th>
                             @endhasrole
                             {{-- المحاذاة أصبحت text-center (يمين في RTL) --}}
 
@@ -184,10 +196,10 @@
                                     </span>
                                 </td>
                                 @hasrole('super admin')
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
-                                        {{ $trans->payable->name }}
-                                    </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
+                                    {{ $trans->payable->name }}
+                                </td>
                                 @endhasrole
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">

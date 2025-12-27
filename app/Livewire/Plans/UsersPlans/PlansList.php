@@ -29,10 +29,10 @@ class PlansList extends Component
         if ($plan->amount > auth()->user()->balance) {
 
             session()->flash('wallet_error', [
-                'amount'  => $plan->amount
+                'amount' => $plan->amount
             ]);
 
-            return redirect()->route('dashboard');
+            return redirect()->route('deposit-page.index');
         }
 
 

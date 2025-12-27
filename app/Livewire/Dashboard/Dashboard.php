@@ -66,6 +66,18 @@ class Dashboard extends Component
         Flux::modal('DepositModal')->show();
     }
 
+    public function goToDeposit()
+    {
+        return redirect()->route('deposit-page.index');
+    }
+
+    public function goToWithdraw()
+    {
+        return redirect()->route('withdraw-page.index');
+
+    }
+
+
 
     public function Withdraw()
     {
@@ -90,7 +102,7 @@ class Dashboard extends Component
     }
 
 
-    public  function FastDeposit($amount)
+    public function FastDeposit($amount)
     {
         $this->depositAmount = $amount;
 

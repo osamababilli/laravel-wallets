@@ -109,6 +109,7 @@ Route::middleware(['auth'])->group(function () {
 
     // deposit page
     Route::get('deposit-page', DepositPage::class)->name('deposit-page.index');
+    Route::get('deposit-page/{wallet}', \App\Livewire\DepositDetails::class)->name('deposit-page.details');
 
     // withdraw page
     Route::get('withdraw-page', WithdrawPage::class)->name('withdraw-page.index');
