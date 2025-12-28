@@ -44,8 +44,8 @@
                     <button @click="network = '{{ $net }}'" type="button"
                         class="flex items-center justify-center gap-2 p-3 rounded-lg border transition-all"
                         :class="network === '{{ $net }}' ?
-                                    'bg-blue-600 border-blue-600 text-white shadow-md transform scale-[1.02]' :
-                                    'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500'">
+                                            'bg-blue-600 border-blue-600 text-white shadow-md transform scale-[1.02]' :
+                                            'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500'">
                         <span class="text-xs font-bold uppercase">{{ $net }}</span>
                     </button>
                 @endforeach
@@ -58,26 +58,29 @@
         <!-- Form Fields -->
         <div class="space-y-4">
             <!-- Amount -->
-            <flux:input x-model="amount" label="حصـة نسبية" placeholder="0.00" type="number" step="0.01">
+            <flux:input x-model="amount" name="amount" label="حصـة نسبية" placeholder="0.00" type="number" step="0.01">
                 <x-slot name="labelSuffix">
                     <span class="text-xs text-zinc-400">0.00 - {{ auth()->user()->balance }}</span>
                 </x-slot>
             </flux:input>
 
             <!-- Wallet Address -->
-            <flux:input x-model="wallet_address" label="عنوان السحب" placeholder="أدخل عنوان المحفظة" />
+            <flux:input x-model="wallet_address" name="wallet_address" label="عنوان السحب"
+                placeholder="أدخل عنوان المحفظة" />
 
             <!-- Password -->
-            <flux:input x-model="password" label="كلمة المرور" type="password" placeholder="أدخل كلمة المرور" />
+            <flux:input x-model="password" name="password" label="كلمة المرور" type="password"
+                placeholder="أدخل كلمة المرور" />
 
             <!-- Summary -->
             <div class="flex justify-between items-center text-xs text-zinc-500 dark:text-zinc-400 px-1">
-                <span>مصاريف</span>
-                <span>0 USDT</span>
+                <span>مصاريف (1%)</span>
+                <span x-text="(amount ? (amount * 0.01).toFixed(2) : '0.00') + ' USDT'">0 USDT</span>
             </div>
             <div class="flex justify-between items-center text-xs text-zinc-500 dark:text-zinc-400 px-1">
                 <span>تلقى فعلا</span>
-                <span class="font-bold text-zinc-800 dark:text-white" x-text="(amount ? amount : 0) + ' USDT'"></span>
+                <span class="font-bold text-zinc-800 dark:text-white"
+                    x-text="(amount ? (amount * 0.99).toFixed(2) : '0.00') + ' USDT'"></span>
             </div>
 
             <!-- Submit -->

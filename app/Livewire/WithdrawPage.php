@@ -16,6 +16,23 @@ class WithdrawPage extends Component
 
     public $networks = ['TRX', 'BNB', 'POLYGON', 'ETH']; // Simplified list
 
+
+    protected function messages()
+    {
+        return [
+            'amount.required' => 'الحصـة نسبية مطلوبة',
+            'amount.numeric' => 'الحصـة نسبية يجب أن تكون رقم',
+            'amount.min' => 'الحصـة نسبية يجب أن تكون أكبر من 1',
+            'amount.max' => 'الحصـة نسبية يجب أن تكون أقل من ' . auth()->user()->balance,
+            'network.required' => 'الشبكة مطلوبة',
+            'wallet_address.required' => 'عنوان المحفظة مطلوب',
+            'wallet_address.string' => 'عنوان المحفظة يجب أن يكون نص',
+            'wallet_address.min' => 'عنوان المحفظة يجب أن يكون أطول من 10',
+            'password.required' => 'كلمة المرور مطلوبة',
+            'password.string' => 'كلمة المرور يجب أن يكون نص',
+            'password.min' => 'كلمة المرور يجب أن يكون أطول من 6',
+        ];
+    }
     public function withdraw()
     {
         $this->validate([
@@ -25,27 +42,37 @@ class WithdrawPage extends Component
             'password' => 'required',
         ]);
 
+
+
+
+
         // Check password (assuming user login password for now)
         if (!Hash::check($this->password, auth()->user()->password)) {
             $this->addError('password', 'كلمة المرور غير صحيحة');
             return;
         }
 
+        $fee = $this->amount * 0.01;
+        $net_amount = $this->amount - $fee;
+
         // Create request
         WithdrawRequest::create([
             'user_id' => auth()->id(),
-            'amount' => $this->amount,
+            'amount' => $net_amount, // Submit request for remaining amount
             'network' => $this->network,
             'wallet_address' => $this->wallet_address,
             'status' => 'pending',
         ]);
 
         // Deduct balance
-        // auth()->user()->withdraw($this->amount); // Assuming bavix/laravel-wallet or similar trait method exists, or manual update
-        // Manual update for now if trait not confirmed to allow negative check overlap, 
-        // but typically:
-        // $user = auth()->user();
-        // $user->withdraw($this->amount);
+        // auth()->user()->withdraw($this->amount);
+        // Manual update
+        $user = auth()->user();
+        if ($user->balance < $this->amount) {
+            $this->addError('amount', 'الرصيد غير كافي');
+            return;
+        }
+        $user->balance -= $this->amount; // Deduct the full amount (including fee)
         // $user->save();
 
         // session()->flash('message', 'تم تقديم طلب السحب بنجاح');
