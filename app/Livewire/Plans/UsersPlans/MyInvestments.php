@@ -13,14 +13,21 @@ class MyInvestments extends Component
 
 
 
-    public function withdrawProfit($id,  $amount)
+    public function withdrawProfit($id, $amount)
     {
+
+
+
+        $user = auth()->user();
+
+        // $user->deposit($amount);
 
 
         ProfitWithdrawal::create([
             'amount' => $amount,
             'member_id' => $id,
-            'user_id' => auth()->user()->id,
+            'user_id' => $user->id,
+            'status' => 'pending',
 
         ]);
 
@@ -28,8 +35,9 @@ class MyInvestments extends Component
 
 
 
+
         // Logic to handle deposit action
-        notify('Withdraw request submitted successfully', 'success', false);
+        notify(__('Withdraw request submitted successfully'), 'success', false);
     }
 
     public function leaveInvestment($id, $amount)

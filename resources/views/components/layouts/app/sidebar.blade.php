@@ -25,7 +25,7 @@
                 <flux:navlist.group :heading="__('Platform')" class="space-y-1">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
                         wire:navigate>
-                        {{ __('Dashboard') }}
+                        {{ __('My Wallet') }}
                     </flux:navlist.item>
 
 
