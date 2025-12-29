@@ -16,8 +16,6 @@ class MyInvestments extends Component
     public function withdrawProfit($id, $amount)
     {
 
-
-
         $user = auth()->user();
 
         // $user->deposit($amount);
@@ -30,10 +28,6 @@ class MyInvestments extends Component
             'status' => 'pending',
 
         ]);
-
-
-
-
 
 
         // Logic to handle deposit action
