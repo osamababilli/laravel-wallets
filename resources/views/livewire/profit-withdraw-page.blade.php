@@ -21,7 +21,7 @@
             <div class="relative z-10">
                 <div class="text-sm text-zinc-400 mb-1">مبلغ السحب المحدد</div>
 
-                <div class="text-3xl font-bold mt-1 tracking-wider">{{ number_format($amount, 2) }}
+                <div class="text-3xl font-bold mt-1 tracking-wider">{{ number_format($calculatedAmount, 2) }}
                     <span class="text-sm font-normal">USDT</span>
                 </div>
             </div>
@@ -41,8 +41,8 @@
                     <button @click="network = '{{ $net }}'" type="button"
                         class="flex items-center justify-center gap-2 p-3 rounded-lg border transition-all"
                         :class="network === '{{ $net }}' ?
-                                                'bg-blue-600 border-blue-600 text-white shadow-md transform scale-[1.02]' :
-                                                'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500'">
+                                                            'bg-blue-600 border-blue-600 text-white shadow-md transform scale-[1.02]' :
+                                                            'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500'">
                         <span class="text-xs font-bold uppercase">{{ $net }}</span>
                     </button>
                 @endforeach
@@ -66,12 +66,12 @@
             <!-- Summary -->
             <div class="flex justify-between items-center text-xs text-zinc-500 dark:text-zinc-400 px-1">
                 <span>مصاريف (1%)</span>
-                <span>{{ number_format($amount * 0.01, 2) }} USDT</span>
+                <span>{{ number_format($calculatedAmount * 0.01, 2) }} USDT</span>
             </div>
             <div class="flex justify-between items-center text-xs text-zinc-500 dark:text-zinc-400 px-1">
                 <span>تلقى فعلا</span>
                 <span class="font-bold text-zinc-800 dark:text-white">
-                    {{ number_format($amount * 0.99, 2) }} USDT
+                    {{ number_format($calculatedAmount * 0.99, 2) }} USDT
                 </span>
             </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Member;
 use App\Models\ProfitWithdrawal;
 use App\Models\WithdrawRequest;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,7 @@ use Livewire\Attributes\Url;
 class ProfitWithdrawPage extends Component
 {
     #[Url]
-    public $amount;
+    public $amount; // Kept for URL compatibility, but treated as display-only hint
 
     #[Url]
     public $member_id;
@@ -22,10 +23,30 @@ class ProfitWithdrawPage extends Component
 
     public $networks = ['TRX', 'BNB', 'POLYGON', 'ETH'];
 
+    public $calculatedAmount = 0;
+
     public function mount()
     {
-        if (!$this->amount || !$this->member_id) {
+        if (!$this->member_id) {
             abort(404, 'Missing required parameters');
+        }
+
+        $member = Member::where('id', $this->member_id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        // Check for pending withdrawals
+        $hasPending = $member->profitWithdrawals()->where('status', 'pending')->exists();
+        if ($hasPending) {
+            abort(403, 'لديك طلب سحب قيد المراجعة بالفعل لهذا الاستثمار.');
+        }
+
+        // Server-side calculation is the source of truth
+        $this->calculatedAmount = $member->getCurrentProfit();
+
+        // Optional: Block if amount is 0
+        if ($this->calculatedAmount <= 0) {
+            abort(403, 'لا توجد أرباح متاحة للسحب.');
         }
     }
 
@@ -55,20 +76,39 @@ class ProfitWithdrawPage extends Component
             return;
         }
 
-        // Create ProfitWithdrawal (Approved)
+        // Re-fetch member to ensure security at the moment of execution
+        $member = Member::where('id', $this->member_id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        // Verify pending again
+        if ($member->profitWithdrawals()->where('status', 'pending')->exists()) {
+            $this->addError('amount', 'يوجد طلب سحب معلق.');
+            return;
+        }
+
+        // Calculate FRESH amount
+        $realAmount = $member->getCurrentProfit();
+
+        if ($realAmount <= 0) {
+            $this->addError('amount', 'عذراً، الرصيد المتاح للسحب هو 0.');
+            return;
+        }
+
+        // Create ProfitWithdrawal (Approved) - Using REAL amount
         ProfitWithdrawal::create([
             'user_id' => auth()->id(),
             'member_id' => $this->member_id,
-            'amount' => $this->amount,
+            'amount' => $realAmount,
             'network' => $this->network,
             'wallet_address' => $this->wallet_address,
             'status' => 'approved',
         ]);
 
-        // Create WithdrawRequest (Pending)
+        // Create WithdrawRequest (Pending) - Using REAL amount
         WithdrawRequest::create([
             'user_id' => auth()->id(),
-            'amount' => $this->amount,
+            'amount' => $realAmount,
             'network' => $this->network,
             'wallet_address' => $this->wallet_address,
             'status' => 'pending',
@@ -81,6 +121,9 @@ class ProfitWithdrawPage extends Component
 
     public function render()
     {
-        return view('livewire.profit-withdraw-page');
+        return view('livewire.profit-withdraw-page', [
+            // Pass calculated amount to view to override URL param display if needed, 
+            // though public property $calculatedAmount is accessible
+        ]);
     }
 }

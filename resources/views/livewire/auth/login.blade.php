@@ -48,7 +48,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
 
         if ($user->hasRole('user')) {
-            redirect(route('profit-withdrawals.index', absolute: false));
+            redirect(route('users.plans.index', absolute: false));
         } else {
             $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
         }

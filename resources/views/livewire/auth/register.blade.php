@@ -47,7 +47,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         Auth::login($user);
 
-        redirect(route('profit-withdrawals.index', absolute: false));
+        redirect(route('users.plans.index', absolute: false));
 
         // $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
     }
