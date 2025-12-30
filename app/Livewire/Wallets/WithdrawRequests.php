@@ -33,12 +33,8 @@ class WithdrawRequests extends Component
     {
         $request = WithdrawRequest::find($id);
         if ($request && $request->status == 'pending') {
-            // Logic for approval:
-            // Since balance was deducted at request time (in WithdrawPage),
-            // approval basically confirms the external transfer was done.
-            // We might want to just update status.
+
             $request->status = 'approved';
-            $request->user->withdraw($request->amount);
             $request->save();
 
             notify(__('تم تأكيد طلب السحب بنجاح'), 'success', false);
@@ -49,10 +45,8 @@ class WithdrawRequests extends Component
     {
         $request = WithdrawRequest::find($id);
         if ($request && $request->status == 'pending') {
-            // Logic for rejection:
-            // Refund the user.
-            $request->user->balance += $request->amount;
-            $request->user->save();
+
+
 
             $request->status = 'rejected';
             $request->save();

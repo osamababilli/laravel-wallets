@@ -10,6 +10,8 @@ class ProfitWithdrawal extends Model
         'user_id',
         'member_id',
         'amount',
+        'network',
+        'wallet_address',
         'status',
 
     ];

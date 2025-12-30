@@ -114,6 +114,7 @@ Route::middleware(['auth'])->group(function () {
 
     // withdraw page
     Route::get('withdraw-page', WithdrawPage::class)->name('withdraw-page.index');
+    Route::get('profit-withdraw-page', \App\Livewire\ProfitWithdrawPage::class)->name('profit-withdraw-page.index');
 
 
     // language routes

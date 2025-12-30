@@ -15,23 +15,10 @@ class MyInvestments extends Component
 
     public function withdrawProfit($id, $amount)
     {
-
-        $user = auth()->user();
-
-        // $user->deposit($amount);
-
-
-        ProfitWithdrawal::create([
+        return redirect()->route('profit-withdraw-page.index', [
             'amount' => $amount,
-            'member_id' => $id,
-            'user_id' => $user->id,
-            'status' => 'pending',
-
+            'member_id' => $id
         ]);
-
-
-        // Logic to handle deposit action
-        notify(__('Withdraw request submitted successfully'), 'success', false);
     }
 
     public function leaveInvestment($id, $amount)
