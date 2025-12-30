@@ -15,6 +15,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public string $password = '';
     public string $password_confirmation = '';
     public string $referral_code = '';
+    public string $phone = '';
 
     public function randomInviteCode(): string
     {
@@ -34,6 +35,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             'referral_code' => ['required', 'string', 'max:255', 'exists:' . User::class . ',invite_code'],
+            'phone' => ['required', 'string', 'max:255', 'unique:' . User::class . ',phone'],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -68,6 +70,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <flux:input wire:model="email" :label="__('Email address')" type="email" required autocomplete="email"
             placeholder="email@example.com" />
 
+        <flux:input wire:model="phone" :label="__('Phone number')" type="text" required autocomplete="phone"
+            placeholder="+201234567890" />
         <!-- Password -->
         <flux:input wire:model="password" :label="__('Password')" type="password" required autocomplete="new-password"
             :placeholder="__('Password')" viewable />
