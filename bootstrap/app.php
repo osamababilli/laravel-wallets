@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\UserCheckActive;
+use \Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -22,7 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             SetLocale::class,
         ]); // إضافة SetLocale للـ web middleware group
-
+    
     })
 
     ->withExceptions(function (Exceptions $exceptions) {

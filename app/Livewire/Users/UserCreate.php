@@ -31,9 +31,26 @@ class UserCreate extends Component
         'selectedRoles.*' => 'string|exists:roles,name',
     ];
 
+
+
+    public function getReferralCode()
+    {
+        if (auth()->user()->invite_code) {
+            return auth()->user()->invite_code;
+        } else {
+            return '000000';
+        }
+
+    }
+
     public function createUser()
     {
         $this->validate();
+
+
+
+
+
 
         $user = User::create([
             'name' => $this->name,
@@ -41,11 +58,15 @@ class UserCreate extends Component
             'password' => Hash::make($this->password), // 🔒 تشفير كلمة المرور
             'phone' => $this->phone,
             'status' => $this->UserStatus ? 'active' : 'inactive',
+            'referral_code' => $this->getReferralCode(),
         ]);
 
         if (!empty($this->selectedRoles)) {
             $user->assignRole($this->selectedRoles);
         }
+
+
+
 
         notify(__('Permission Created Successfully'), 'success');
 
