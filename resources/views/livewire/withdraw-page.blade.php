@@ -44,8 +44,8 @@
                     <button @click="network = '{{ $net }}'" type="button"
                         class="flex items-center justify-center gap-2 p-3 rounded-lg border transition-all"
                         :class="network === '{{ $net }}' ?
-                                            'bg-blue-600 border-blue-600 text-white shadow-md transform scale-[1.02]' :
-                                            'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500'">
+                            'bg-blue-600 border-blue-600 text-white shadow-md transform scale-[1.02]' :
+                            'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500'">
                         <span class="text-xs font-bold uppercase">{{ $net }}</span>
                     </button>
                 @endforeach
@@ -58,7 +58,7 @@
         <!-- Form Fields -->
         <div class="space-y-4">
             <!-- Amount -->
-            <flux:input x-model="amount" name="amount" label="حصـة نسبية" placeholder="0.00" type="number" step="0.01">
+            <flux:input x-model="amount" name="amount" label="المبلغ" placeholder="0.00" type="number" step="0.01">
                 <x-slot name="labelSuffix">
                     <span class="text-xs text-zinc-400">0.00 - {{ auth()->user()->balance }}</span>
                 </x-slot>
