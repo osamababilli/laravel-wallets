@@ -20,10 +20,10 @@ class WithdrawPage extends Component
     protected function messages()
     {
         return [
-            'amount.required' => 'الحصـة نسبية مطلوبة',
-            'amount.numeric' => 'الحصـة نسبية يجب أن تكون رقم',
-            'amount.min' => 'الحصـة نسبية يجب أن تكون أكبر من 1',
-            'amount.max' => 'الحصـة نسبية يجب أن تكون أقل من ' . auth()->user()->balance,
+            'amount.required' => 'الالمبلغ مطلوبة',
+            'amount.numeric' => 'الالمبلغ يجب أن تكون رقم',
+            'amount.min' => 'الالمبلغ يجب أن تكون أكبر من 1',
+            'amount.max' => 'الالمبلغ يجب أن تكون أقل من ' . auth()->user()->balance,
             'network.required' => 'الشبكة مطلوبة',
             'wallet_address.required' => 'عنوان المحفظة مطلوب',
             'wallet_address.string' => 'عنوان المحفظة يجب أن يكون نص',
@@ -58,7 +58,7 @@ class WithdrawPage extends Component
         // Create request
         WithdrawRequest::create([
             'user_id' => auth()->id(),
-            'amount' => $net_amount, // Submit request for remaining amount
+            'amount' => $this->amount, // Submit request for remaining amount
             'network' => $this->network,
             'wallet_address' => $this->wallet_address,
             'status' => 'pending',
@@ -72,8 +72,7 @@ class WithdrawPage extends Component
             $this->addError('amount', 'الرصيد غير كافي');
             return;
         }
-        $user->balance -= $this->amount; // Deduct the full amount (including fee)
-        // $user->save();
+
 
         // session()->flash('message', 'تم تقديم طلب السحب بنجاح');
         notify('تم تقديم طلب السحب بنجاح', 'success');

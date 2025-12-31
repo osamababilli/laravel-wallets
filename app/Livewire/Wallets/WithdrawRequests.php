@@ -38,8 +38,9 @@ class WithdrawRequests extends Component
 
             $request->save();
 
-            $request->user->wallets()->first()->withdraw($request->amount);
 
+            $net_amount = $request->amount + $request->amount * 0.01;
+            $request->user->wallets()->first()->withdraw($net_amount);
             notify(__('تم تأكيد طلب السحب بنجاح'), 'success', false);
         }
     }
