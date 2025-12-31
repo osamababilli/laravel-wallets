@@ -54,14 +54,15 @@ class WithdrawPage extends Component
 
         $fee = $this->amount * 0.01;
         $net_amount = $this->amount - $fee;
-
+        // dd($this->amount);
         // Create request
         WithdrawRequest::create([
             'user_id' => auth()->id(),
-            'amount' => $this->amount, // Submit request for remaining amount
+            'amount' => $net_amount, // Submit request for remaining amount
             'network' => $this->network,
             'wallet_address' => $this->wallet_address,
             'status' => 'pending',
+            'net_amount' => $this->amount
         ]);
 
         // Deduct balance

@@ -41,8 +41,8 @@
                     <button @click="network = '{{ $net }}'" type="button"
                         class="flex items-center justify-center gap-2 p-3 rounded-lg border transition-all"
                         :class="network === '{{ $net }}' ?
-                                                            'bg-blue-600 border-blue-600 text-white shadow-md transform scale-[1.02]' :
-                                                            'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500'">
+                            'bg-blue-600 border-blue-600 text-white shadow-md transform scale-[1.02]' :
+                            'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500'">
                         <span class="text-xs font-bold uppercase">{{ $net }}</span>
                     </button>
                 @endforeach
@@ -84,8 +84,9 @@
 
         <!-- Note -->
         <div
-            class="p-4 mb-8 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-center text-sm text-zinc-500 dark:text-zinc-400">
-            وقت السحب حوالي 0~30 دقيقة
+            class="p-4 mb-8 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-red-50 dark:bg-red-800/50 text-center text-sm text-white dark:text-white">
+            سيتم تحويل الأرباح إلى محفظتك الداخلية أولًا، ثم تحويلها إلى المحفظة التي قمت بإدخال عنوانها خلال مدة لا
+            تتجاوز 30 دقيقة.
         </div>
     </div>
 </div>

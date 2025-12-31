@@ -11,7 +11,8 @@ class WithdrawRequest extends Model
         'network',
         'wallet_address',
         'status',
-        'user_id'
+        'user_id',
+        'net_amount'
     ];
 
     public function user()

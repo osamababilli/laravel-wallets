@@ -33,14 +33,14 @@ class WithdrawRequests extends Component
     {
         $request = WithdrawRequest::find($id);
         if ($request && $request->status == 'pending') {
+            // $net_amount = round($request->amount * 1.01, 2);
+
 
             $request->status = 'approved';
 
             $request->save();
 
-
-            $net_amount = $request->amount + $request->amount * 0.01;
-            $request->user->wallets()->first()->withdraw($net_amount);
+            $request->user->wallets()->first()->withdraw($request->net_amount);
             notify(__('تم تأكيد طلب السحب بنجاح'), 'success', false);
         }
     }

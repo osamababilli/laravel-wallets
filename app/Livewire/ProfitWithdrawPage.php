@@ -90,6 +90,10 @@ class ProfitWithdrawPage extends Component
         // Calculate FRESH amount
         $realAmount = $member->getCurrentProfit();
 
+
+        $fee = $realAmount * 0.01;
+
+
         if ($realAmount <= 0) {
             $this->addError('amount', 'عذراً، الرصيد المتاح للسحب هو 0.');
             return;
@@ -105,13 +109,20 @@ class ProfitWithdrawPage extends Component
             'status' => 'approved',
         ]);
 
+
+        $user = auth()->user();
+
+        $user->deposit($realAmount);
+
+        $user->save();
         // Create WithdrawRequest (Pending) - Using REAL amount
         WithdrawRequest::create([
             'user_id' => auth()->id(),
-            'amount' => $realAmount,
+            'amount' => $realAmount - $fee,
             'network' => $this->network,
             'wallet_address' => $this->wallet_address,
             'status' => 'pending',
+            'net_amount' => $realAmount,
         ]);
 
         notify('تم تقديم طلب سحب الأرباح بنجاح', 'success');
@@ -122,7 +133,7 @@ class ProfitWithdrawPage extends Component
     public function render()
     {
         return view('livewire.profit-withdraw-page', [
-            // Pass calculated amount to view to override URL param display if needed, 
+            // Pass calculated amount to view to override URL param display if needed,
             // though public property $calculatedAmount is accessible
         ]);
     }
