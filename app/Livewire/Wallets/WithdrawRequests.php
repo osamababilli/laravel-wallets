@@ -35,7 +35,10 @@ class WithdrawRequests extends Component
         if ($request && $request->status == 'pending') {
 
             $request->status = 'approved';
+
             $request->save();
+
+            $request->user->wallets()->first()->withdraw($request->amount);
 
             notify(__('تم تأكيد طلب السحب بنجاح'), 'success', false);
         }
