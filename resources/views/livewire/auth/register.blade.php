@@ -49,6 +49,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         Auth::login($user);
 
+        $inviter_user = User::where('invite_code', $this->referral_code)->first();
+
+        if ($inviter_user) {
+            $inviter_user->deposit(10);
+        }
+
         redirect(route('users.plans.index', absolute: false));
 
         // $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
