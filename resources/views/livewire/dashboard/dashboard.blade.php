@@ -64,7 +64,7 @@
         <div class="grid gap-6 md:grid-cols-3">
 
             {{-- 💳 بطاقة المحفظة الرئيسية (الرصيد) - تصميم نظيف --}}
-            <div class="relative p-6 rounded-2xl min-h-48 md:col-span-2
+            <div class="relative p-6 rounded-2xl min-h-48 
                        bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
                        border border-neutral-200 dark:border-zinc-700">
 
@@ -78,6 +78,7 @@
                         </flux:heading>
                     </div>
 
+
                     {{-- تمييز الربح باللون الأخضر الواضح --}}
                     <div class="flex items-center gap-2 font-semibold text-base text-green-600 dark:text-green-400">
 
@@ -87,26 +88,62 @@
             </div>
 
 
+@hasrole('user')
 
-            {{-- 🔗 بطاقة الإجراءات (Deposit/Withdraw) - تصميم نظيف --}}
+              <div class="relative p-6 rounded-2xl min-h-48 
+                       bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
+                       border border-neutral-200 dark:border-zinc-700">
+
+                <div class="z-10 flex flex-col justify-between h-full">
+                    <div class="mb-4">
+                        <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Withdraw Profits') }}
+                        </flux:subheading>
+                        <flux:heading size="xl" class="font-extrabold text-3xl tracking-tight text-gray-900
+                            dark:text-white">
+                            {{ $profit ?? '0.00' }} USDT
+                        </flux:heading>
+                    </div>
+
+                      <div class="mb-4">
+                        <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Available Profits') }}
+                        </flux:subheading>
+                        <flux:heading size="xl" class="font-extrabold text-3xl tracking-tight text-gray-900
+                            dark:text-white">
+                            {{  number_format($peddingprofit, 2) }} USDT
+                        </flux:heading>
+                    </div>
+                </div>
+              </div>
+
+              @else
+
+
+               <div class="relative p-6 rounded-2xl min-h-48 
+                       bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
+                       border border-neutral-200 dark:border-zinc-700">
+
+                <div class="z-10 flex flex-col justify-between h-full">
+                    <div class="mb-4">
+                        <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Total Profits') }}
+                        </flux:subheading>
+                        <flux:heading size="xl" class="font-extrabold text-3xl tracking-tight text-gray-900
+                            dark:text-white">
+                            {{ $adminProfits }} USDT
+                        </flux:heading>
+                    </div>
+
+            
+                </div>
+              </div>
+
+@endhasrole
+
+               {{-- 🔗 بطاقة الإجراءات (Deposit/Withdraw) - تصميم نظيف --}}
             <div class="relative flex flex-col justify-center gap-4 p-6 rounded-2xl min-h-48
                        bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
                        border border-neutral-200 dark:border-zinc-700">
 
-                {{-- زر الإيداع (Deposit) --}}
 
-                <!-- <flux:modal.trigger name="DepositModal">
-                    <flux:button icon="arrow-down-circle" variant="primary" class="justify-center w-full">
-                        {{ __('Deposit') }}
-                    </flux:button>
-                </flux:modal.trigger>
-
-                <flux:modal.trigger name="WithdrawModal">
-                    {{-- زر السحب (Withdraw) --}}
-                    <flux:button icon="arrow-up-circle" variant="primary" class="justify-center w-full">
-                        {{ __('Withdraw') }}
-                    </flux:button>
-                </flux:modal.trigger> -->
 
 
 
@@ -124,6 +161,7 @@
 
             </div>
         </div>
+        
 
 
 

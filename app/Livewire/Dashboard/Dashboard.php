@@ -8,18 +8,47 @@ use Flux\Flux;
 use Illuminate\Container\Attributes\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use App\Models\ProfitWithdrawal;
 
 class Dashboard extends Component
 {
 
-    public $depositAmount, $selectedWallet;
+    public $depositAmount, $selectedWallet, $profit, $peddingprofit;
+    public $adminProfits;
 
+
+
+    public function GetAdminProfit()
+    {
+        $amount = ProfitWithdrawal::where("status", "approved")->sum('amount');
+        $net_amount = ProfitWithdrawal::where("status", "approved")->sum('net_amount');
+        return $amount - $net_amount;
+
+    }
+
+
+
+
+    public function GetUserCurrentProfit()
+    {
+        $members = \App\Models\Member::where('user_id', auth()->id())->get();
+        $total = 0;
+        foreach ($members as $member) {
+            $total += $member->getCurrentProfit();
+        }
+        return $total;
+    }
 
 
 
 
     public function mount()
     {
+
+        $this->profit = ProfitWithdrawal::where("user_id", auth()->user()->id)->where("status", "approved")->sum('amount');
+        $this->peddingprofit = $this->GetUserCurrentProfit();
+        $this->adminProfits = $this->GetAdminProfit();
+
         if (session()->has('wallet_error')) {
 
             $data = session('wallet_error');

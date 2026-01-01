@@ -122,4 +122,10 @@ class User extends Authenticatable implements Wallet
     }
 
 
+    public function getCurrentProfitAttribute()
+    {
+        return $this->getCurrentProfit();
+    }
+
+
 }
