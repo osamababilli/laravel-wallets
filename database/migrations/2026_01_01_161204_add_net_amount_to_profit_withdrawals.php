@@ -11,9 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('profit_withdrawals', function (Blueprint $table) {
-            $table->string('network')->nullable()->after('amount');
-            $table->string('wallet_address')->nullable()->after('network');
-
+            $table->decimal('net_amount', 10, 2)->default(0);
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('profit_withdrawals', function (Blueprint $table) {
-            $table->dropColumn(['network', 'wallet_address']);
+            $table->dropColumn('net_amount');
         });
     }
 };

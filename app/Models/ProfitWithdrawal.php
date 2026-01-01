@@ -13,6 +13,7 @@ class ProfitWithdrawal extends Model
         'network',
         'wallet_address',
         'status',
+        'net_amount',
 
     ];
 

@@ -50,6 +50,11 @@ new #[Layout('components.layouts.auth')] class extends Component {
         Auth::login($user);
 
         $inviter_user = User::where('invite_code', $this->referral_code)->first();
+        $inviter_user->inviterProfit()->create([
+            'user_id' => $user->id,
+            'amount' => 10,
+        ]);
+        
 
         if ($inviter_user) {
             $inviter_user->deposit(10);

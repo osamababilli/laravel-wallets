@@ -49,6 +49,14 @@
                         :current="request()->routeIs('profit-withdrawals.index')">
                         {{ __('Profit  History') }}
                     </flux:navlist.item>
+
+                       <flux:navlist.item icon="history" :href="route('affiliate.index')" wire:navigate
+                        :current="request()->routeIs('affiliate.index')">
+                        {{ __('Affiliate  History') }}
+                    </flux:navlist.item>
+
+
+
                 </flux:navlist.group>
                 @endhasrole
                 <flux:navlist.group :heading="__('Wallet Management')" class="mt-3 space-y-1">
@@ -162,6 +170,11 @@
                             {{ __('Profit  History') }}
                         </flux:navlist.item>
 
+
+                       <flux:navlist.item icon="history" :href="route('affiliate.index')" wire:navigate
+                        :current="request()->routeIs('affiliate.index')">
+                        {{ __('Affiliate  History') }}
+                       </flux:navlist.item>
 
 
                     </flux:navlist>

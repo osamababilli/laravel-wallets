@@ -27,7 +27,7 @@ use App\Livewire\Members\MembersList;
 use App\Livewire\Members\ProfitWithdrawals\ProfitWithdrawalsList;
 use App\Livewire\DepositPage;
 use App\Livewire\WithdrawPage;
-
+use App\Livewire\Affiliate\AffiliateList;
 
 
 Route::get('/', function () {
@@ -96,6 +96,8 @@ Route::middleware(['auth'])->group(function () {
     // Members routes
     Route::get('members', MembersList::class)->name('members.index');
 
+    // Affiliate routes
+    Route::get('affiliate', AffiliateList::class)->name('affiliate.index');
 
 
 

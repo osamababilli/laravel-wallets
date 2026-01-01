@@ -73,6 +73,10 @@ class User extends Authenticatable implements Wallet
     }
 
 
+    public function getReferralUsersCount()
+    {
+        return self::where('referral_code', $this->invite_code)->count();
+    }
 
 
 
@@ -83,6 +87,10 @@ class User extends Authenticatable implements Wallet
             ->logOnlyDirty();                    // يسجّل فقط الحقول التي تغيرت فعليًا
     }
 
+    public function getReferralUsersCountAttribute()
+    {
+        return $this->where('referral_code', $this->id)->count();
+    }
     //// Automatically create a wallet when a user is created
     protected static function booted()
     {
@@ -106,4 +114,12 @@ class User extends Authenticatable implements Wallet
     {
         return $this->hasMany(ProfitWithdrawal::class);
     }
+
+
+    public function inviterProfit()
+    {
+        return $this->hasMany(AffiliateProfit::class);
+    }
+
+
 }
