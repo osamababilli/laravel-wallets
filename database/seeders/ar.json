@@ -258,5 +258,17 @@
     "All Crypto Wallets and management": "جميع محافظ العملات الرقمية",
     "Profit History": "سجل الأرباح",
     "Wallet Deposit Requests": "طلبات إيداع المحفظة",
-    "Withdraw Requests": "طلبات السحب"
+    "Withdraw Requests": "طلبات السحب",
+    "My Wallet": "محفظتي",
+    "Affiliate  History": "سجل التسويق بالعمولة",
+    "Affiliate Profits": "أرباح التسويق بالعمولة",
+    "List of all affiliate profits": "قائمة بجميع أرباح التسويق بالعمولة",
+    "Received": "تم الاستلام",
+    "No profits found.": "لا توجد أرباح",
+    "Phone number": "رقم الهاتف",
+    "Withdraw Profits": "سحب الأرباح",
+    "Available Profits": "الأرباح المتاحة",
+    "Total Profits": "إجمالي الأرباح",
+    "Invite Code": "رمز الدعوة",
+    "Referral Users Count": "عدد المستخدمين المُحالين"
 }
