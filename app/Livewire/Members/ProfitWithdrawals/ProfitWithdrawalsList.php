@@ -18,7 +18,6 @@ class ProfitWithdrawalsList extends Component
     {
         $request = ProfitWithdrawal::find($id);
         if ($request) {
-            $request->user->deposit($request->amount);
             $request->status = 'approved';
             $request->save();
             notify(__('Wallet Request Approved Successfully'), 'success', false);

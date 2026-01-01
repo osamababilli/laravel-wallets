@@ -46,6 +46,14 @@
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             {{ __('Status') }}
                         </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            {{ __('Network') }}
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            {{ __('Address') }}
+                        </th>
 
 
                         <th scope="col"
@@ -82,7 +90,11 @@
                         @endhasrole
                         <td
                             class="px-6 py-4 whitespace-nowrap text-center text-base font-semibold  text-green-600  dark:text-green-400 ">
-                            {{ $trans->amount }} USDT
+                            @hasrole('super admin')
+                                {{ $trans->net_amount }} USDT <br>
+                            @else
+                                {{ $trans->amount }} USDT
+                            @endhasrole
                         </td>
 
 
@@ -96,6 +108,18 @@
                                 <flux:badge variant="pill" color="red">{{ __('Rejected') }}</flux:badge>
                                 @endif
                             </span>
+                        </td>
+                        <td
+                            class="px-6 py-4 whitespace-nowrap text-center text-base font-semibold text-gray-700 dark:text-gray-300">
+                            {{ $trans->network ?? '-' }}
+                        </td>
+                        <td onclick="navigator.clipboard.writeText('{{ $trans->wallet_address }}'); alert('{{ __('Address Copied') }}')"
+                            class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400 cursor-pointer hover:text-blue-500 transition-colors group relative"
+                            title="{{ $trans->wallet_address }}">
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="truncate max-w-[150px]">{{ $trans->wallet_address ?? '-' }}</span>
+                                <flux:icon.document-duplicate class="size-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400">
                             {{ $trans->created_at->format('d M, Y') }}

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\WithdrawRequest;
+use App\Models\CryptoWalle;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Flux\Flux;
@@ -14,8 +15,15 @@ class WithdrawPage extends Component
     public $wallet_address;
     public $password;
 
-    public $networks = ['TRX', 'BNB', 'POLYGON', 'ETH']; // Simplified list
+    public $networks = []; // Simplified list
 
+
+
+    public function mount()
+    {
+        $this->networks = CryptoWalle::where('status', 'active')->pluck('name')->toArray();
+
+    }
 
     protected function messages()
     {

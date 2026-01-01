@@ -8,7 +8,7 @@ use App\Models\WithdrawRequest;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\Attributes\Url;
-
+use App\Models\CryptoWalle;
 class ProfitWithdrawPage extends Component
 {
     #[Url]
@@ -21,12 +21,13 @@ class ProfitWithdrawPage extends Component
     public $wallet_address;
     public $password;
 
-    public $networks = ['TRX', 'BNB', 'POLYGON', 'ETH'];
+    public $networks = [];
 
     public $calculatedAmount = 0;
 
     public function mount()
     {
+        $this->networks = CryptoWalle::where('status', 'active')->pluck('name')->toArray();
         if (!$this->member_id) {
             abort(404, 'Missing required parameters');
         }
@@ -89,41 +90,27 @@ class ProfitWithdrawPage extends Component
 
         // Calculate FRESH amount
         $realAmount = $member->getCurrentProfit();
-
-
         $fee = $realAmount * 0.01;
-
+        $netAmount = $realAmount - $fee;
 
         if ($realAmount <= 0) {
             $this->addError('amount', 'عذراً، الرصيد المتاح للسحب هو 0.');
             return;
         }
 
-        // Create ProfitWithdrawal (Approved) - Using REAL amount
+        // Create ProfitWithdrawal (Pending)
         ProfitWithdrawal::create([
             'user_id' => auth()->id(),
             'member_id' => $this->member_id,
-            'amount' => $realAmount,
-            'network' => $this->network,
-            'wallet_address' => $this->wallet_address,
-            'status' => 'approved',
-        ]);
-
-
-        $user = auth()->user();
-
-        $user->deposit($realAmount);
-
-        $user->save();
-        // Create WithdrawRequest (Pending) - Using REAL amount
-        WithdrawRequest::create([
-            'user_id' => auth()->id(),
-            'amount' => $realAmount - $fee,
+            'amount' => $realAmount, // Full amount for user view
+            'net_amount' => $netAmount, // Net amount for admin view (what is actually sent)
             'network' => $this->network,
             'wallet_address' => $this->wallet_address,
             'status' => 'pending',
-            'net_amount' => $realAmount,
         ]);
+
+        // Removed: $user->deposit($realAmount); (We don't deposit to internal wallet, we withdraw externally)
+        // Removed: WithdrawRequest::create(...); (User explicitly said do not create this)
 
         notify('تم تقديم طلب سحب الأرباح بنجاح', 'success');
 
