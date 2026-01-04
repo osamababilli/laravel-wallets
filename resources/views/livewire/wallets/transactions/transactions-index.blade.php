@@ -41,10 +41,12 @@
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             {{ __('Amount') }}
                         </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                            {{ __('Date') }}
-                        </th>
+                        @hasrole('super admin')
+                            <th scope="col"
+                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                {{ __('Date') }}
+                            </th>
+                        @endhasrole
                     </tr>
                 </thead>
 
@@ -80,10 +82,12 @@
                                 class="px-6 py-4 whitespace-nowrap text-center text-base font-semibold @if ($trans->type == 'deposit') text-green-600  dark:text-green-400 @else text-red-600 dark:text-red-400 @endif ">
                                 {{ $trans->amount }} USDT
                             </td>
+                            @hasrole('super admin')
                             <td
                                 class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400">
                                 {{ $trans->created_at->format('d M, Y') }}
                             </td>
+                            @endhasrole
                         </tr>
 
                     @empty
