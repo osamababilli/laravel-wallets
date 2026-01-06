@@ -55,7 +55,8 @@
 
                 <!-- زر إنشاء دور -->
                 <div class="w-full md:w-auto">
-                    <a href="{{ route('users.create') }}" class="w-full md:w-auto flex items-center justify-center gap-2
+                    <a href="{{ route('users.create') }}"
+                        class="w-full md:w-auto flex items-center justify-center gap-2
                   text-white bg-zinc-700 hover:bg-zinc-600
                   dark:bg-zinc-600 dark:hover:bg-zinc-700 dark:text-white
                   rounded-lg text-sm px-4 py-2 font-medium
@@ -72,7 +73,8 @@
                 <!-- زر الترتيب -->
                 <div x-data="{ open: false }" class="w-full md:w-auto relative">
                     <!-- زر الفلترة -->
-                    <button @click="open = !open" class="w-full md:w-auto flex items-center justify-center gap-2
+                    <button @click="open = !open"
+                        class="w-full md:w-auto flex items-center justify-center gap-2
                         py-2 px-4 text-sm font-medium
                         text-zinc-900 bg-white border border-zinc-200
                         rounded-lg hover:bg-zinc-100 hover:text-primary-700
@@ -98,11 +100,13 @@
                     </button>
 
                     <!-- القائمة المنسدلة -->
-                    <div x-show="open" @click.outside="open = false" x-transition class="z-10 absolute ltr:right-0 rtl:left-0 w-48 p-3 mt-2 bg-white rounded-lg shadow
+                    <div x-show="open" @click.outside="open = false" x-transition
+                        class="z-10 absolute ltr:right-0 rtl:left-0 w-48 p-3 mt-2 bg-white rounded-lg shadow
                          dark:bg-zinc-700">
                         <div class="flex items-center mb-4">
                             <input checked id="default-radio-1" wire:model.live="sortDirection" type="radio"
-                                value="desc" class="w-4 h-4 text-blue-600 border-zinc-300
+                                value="desc"
+                                class="w-4 h-4 text-blue-600 border-zinc-300
                        focus:ring-blue-500 dark:focus:ring-blue-600
                        dark:ring-offset-zinc-800 focus:ring-2
                        bg-zinc-100 dark:bg-zinc-700 dark:border-zinc-600">
@@ -112,7 +116,8 @@
                             </label>
                         </div>
                         <div class="flex items-center">
-                            <input id="default-radio-2" wire:model.live="sortDirection" type="radio" value="asc" class="w-4 h-4 text-blue-600 border-zinc-300
+                            <input id="default-radio-2" wire:model.live="sortDirection" type="radio" value="asc"
+                                class="w-4 h-4 text-blue-600 border-zinc-300
                        focus:ring-blue-500 dark:focus:ring-blue-600
                        dark:ring-offset-zinc-800 focus:ring-2
                        bg-zinc-100 dark:bg-zinc-700 dark:border-zinc-600">
@@ -137,6 +142,7 @@
                     <tr>
                         <th scope="col" class="px-4 py-3">{{ __('Name') }}</th>
                         <th scope="col" class="px-4 py-3">{{ __('Email') }}</th>
+                        <th scope="col" class="px-4 py-3">{{ __('Phone') }}</th>
                         <th scope="col" class="px-4 py-3">{{ __('Invite Code') }}</th>
                         <th scope="col" class="px-4 py-3">{{ __('Referral Code') }}</th>
                         <th scope="col" class="px-4 py-3">{{ __('Referral Users Count') }}</th>
@@ -147,141 +153,148 @@
                         <th scope="col" class="px-4 py-3">{{ __('Active') }}</th>
 
                         @if (auth()->user()->can('edit user') || auth()->user()->can('delete user'))
-                        <th scope="col" class="px-4 py-3 text-center">
-                            {{ __('Actions') }}
-                        </th>
+                            <th scope="col" class="px-4 py-3 text-center">
+                                {{ __('Actions') }}
+                            </th>
                         @endif
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($users as $user)
-                    <tr class="border-b dark:border-gray-700">
-                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $user->name }}</th>
+                        <tr class="border-b dark:border-gray-700">
+                            <th scope="row"
+                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $user->name }}</th>
 
-                        <td class="px-4 py-3">{{ $user->email }}</td>
-                        <td class="px-4 py-3">{{ $user->invite_code }}</td>
-                        <td class="px-4 py-3">{{ $user->referral_code }}</td>
-                        <td class="px-4 py-3">{{ $user->getReferralUsersCount($user->id) }}</td>
-                        <td class="px-4 py-3 ">
-                            <div class="flex justify-center items-center">
-                                @if ($user->email_verified_at)
-                                <flux:icon name="circle-check-big"
-                                    class="text-green-500 w-6 h-6 text-center flex items-center" />
-                                @else
-                                <flux:icon name="circle-x" class="text-red-500 w-6 h-6 flex items-center" />
-                                @endif
-                            </div>
-                        </td>
-
-
-                        <td class="px-4 py-3 ">
-
-                            <flux:badge as="button" variant="pill" size="lg">
-                                {{ $user->roles->isNotEmpty() ? $user->roles->pluck('name')->join(', ') : __('None') }}
-                            </flux:badge>
+                            <td class="px-4 py-3">{{ $user->email }}</td>
+                            <td class="px-4 py-3">{{ $user->phone ? $user->phone : '-' }}</td>
+                            <td class="px-4 py-3">{{ $user->invite_code }}</td>
+                            <td class="px-4 py-3">{{ $user->referral_code }}</td>
+                            <td class="px-4 py-3">{{ $user->getReferralUsersCount($user->id) }}</td>
+                            <td class="px-4 py-3 ">
+                                <div class="flex justify-center items-center">
+                                    @if ($user->email_verified_at)
+                                        <flux:icon name="circle-check-big"
+                                            class="text-green-500 w-6 h-6 text-center flex items-center" />
+                                    @else
+                                        <flux:icon name="circle-x" class="text-red-500 w-6 h-6 flex items-center" />
+                                    @endif
+                                </div>
+                            </td>
 
 
-                        </td>
+                            <td class="px-4 py-3 ">
 
-                        <td class="px-4 py-3 ">
-
-
-                            {{ number_format($user->balance, 2) . ' ' }} USDT
-
+                                <flux:badge as="button" variant="pill" size="lg">
+                                    {{ $user->roles->isNotEmpty() ? $user->roles->pluck('name')->join(', ') : __('None') }}
+                                </flux:badge>
 
 
-                        </td>
+                            </td>
 
-                        <td class="px-4 py-3">
-                            <div class="flex justify-center items-center">
-                                @if ($user->status === 'active')
-                                <flux:icon name="circle-check-big" class="text-green-500 w-6 h-6 text-center" />
-                                @else
-                                <flux:icon name="circle-x" class="text-red-500 w-6 h-6" />
-                                @endif
-                            </div>
-                        </td>
+                            <td class="px-4 py-3 ">
 
 
-                        @if (auth()->user()->can('edit user') || auth()->user()->can('delete user'))
-                        <td class="px-4 py-3 flex items-center justify-center">
-                            <div class="flex flex-row items-center justify-center gap-2">
-                                @can('edit user')
-                                <a href="{{ route('users.edit', $user) }}"
-                                    class="flex items-center justify-center text-xs
+                                {{ number_format($user->balance, 2) . ' ' }} USDT
+
+
+
+                            </td>
+
+                            <td class="px-4 py-3">
+                                <div class="flex justify-center items-center">
+                                    @if ($user->status === 'active')
+                                        <flux:icon name="circle-check-big"
+                                            class="text-green-500 w-6 h-6 text-center" />
+                                    @else
+                                        <flux:icon name="circle-x" class="text-red-500 w-6 h-6" />
+                                    @endif
+                                </div>
+                            </td>
+
+
+                            @if (auth()->user()->can('edit user') || auth()->user()->can('delete user'))
+                                <td class="px-4 py-3 flex items-center justify-center">
+                                    <div class="flex flex-row items-center justify-center gap-2">
+                                        @can('edit user')
+                                            <a href="{{ route('users.edit', $user) }}"
+                                                class="flex items-center justify-center text-xs
                                             hover:text-green-500 hover:bg-gray-200/25 hover:rounded-md
                                             p-1.5 transition-[color,background-color,border-radius] duration-200 ease-in-out">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-square-pen-icon lucide-square-pen">
-                                        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                        <path
-                                            d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-                                    </svg>
-                                </a>
-                                @endcan
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-square-pen-icon lucide-square-pen">
+                                                    <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                                    <path
+                                                        d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
+                                                </svg>
+                                            </a>
+                                        @endcan
 
 
 
-                                @can('delete user')
-                                <a href="javascript:void(0)" wire:click="delete('{{ $user->id }}')"
-                                    class="flex items-center justify-center text-xs
+                                        @can('delete user')
+                                            <a href="javascript:void(0)" wire:click="delete('{{ $user->id }}')"
+                                                class="flex items-center justify-center text-xs
                                             hover:text-red-500 hover:bg-gray-200/25 hover:rounded-md
                                             p-1.5 transition-[color,background-color,border-radius] duration-200 ease-in-out">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-trash-icon lucide-trash">
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
-                                        <path d="M3 6h18" />
-                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                    </svg>
-                                </a>
-                                @endcan
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-trash-icon lucide-trash">
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                                                    <path d="M3 6h18" />
+                                                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                </svg>
+                                            </a>
+                                        @endcan
 
 
 
-                                <a href="javascript:void(0)" wire:click="editUserBalance('{{ $user->id }}')"
-                                    class="flex items-center justify-center text-xs
+                                        <a href="javascript:void(0)"
+                                            wire:click="editUserBalance('{{ $user->id }}')"
+                                            class="flex items-center justify-center text-xs
                                             hover:text-white-500 hover:bg-gray-200/25 hover:rounded-md
                                             p-1.5 transition-[color,background-color,border-radius] duration-200 ease-in-out">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-wallet-icon lucide-wallet">
-                                        <path
-                                            d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
-                                        <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
-                                    </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-wallet-icon lucide-wallet">
+                                                <path
+                                                    d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+                                                <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+                                            </svg>
 
 
-                                </a>
+                                        </a>
 
 
 
-                            </div>
-                        </td>
-                        @endif
-                    </tr>
+                                    </div>
+                                </td>
+                            @endif
+                        </tr>
 
                     @empty
 
-                    <tr>
-                        <td colspan="6" class="px-4 py-12 text-center ">
-                            <div class="flex flex-row items-center justify-center gap-2">
-                                <span>
-                                    <svg class="w-8 h-8 text-gray-400" aria-hidden="true" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path
-                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                    </svg>
-                                </span>
-                                <div>
-                                    {{ __('No data found') }}
+                        <tr>
+                            <td colspan="6" class="px-4 py-12 text-center ">
+                                <div class="flex flex-row items-center justify-center gap-2">
+                                    <span>
+                                        <svg class="w-8 h-8 text-gray-400" aria-hidden="true" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path
+                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        {{ __('No data found') }}
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
