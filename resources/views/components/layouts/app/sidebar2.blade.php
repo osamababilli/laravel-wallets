@@ -187,7 +187,6 @@
     {{ $slot }}
 
     @fluxScripts
-
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {},
@@ -203,6 +202,7 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+
 </body>
 
 </html>
