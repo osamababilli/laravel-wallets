@@ -38,7 +38,7 @@ Route::get('/', function () {
 //     ->middleware(['auth', 'verified'])
 //     ->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'statusCheck'])->group(function () {
 
     Route::get('dashboard', Dashboard::class)->name('dashboard');
 
