@@ -169,7 +169,7 @@
 
                         <td class="px-4 py-3">{{ $user->email }}</td>
                         <td class="px-4 py-3">{{ $user->user_number }}</td>
-                        <td class="px-4 py-3">{{ $user->phone }}</td>
+                        <td class="px-4 py-3">{{ $user->phone ? $user->phone : '-' }}</td>
 
                         <td class="px-4 py-3">{{ $user->invite_code }}</td>
                         <td class="px-4 py-3">{{ $user->referral_code }}</td>
