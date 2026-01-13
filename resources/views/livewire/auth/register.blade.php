@@ -54,7 +54,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         event(new Registered(($user = User::create($validated))));
 
         $user->assignRole('user');
-
+        $user->status = 'active';
         $user->invite_code = $this->randomInviteCode();
         $user->user_number = $this->GenerateNumber();
         $user->save();
@@ -66,7 +66,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'user_id' => $user->id,
             'amount' => 10,
         ]);
-        
 
         if ($inviter_user) {
             $inviter_user->deposit(10);
