@@ -35,9 +35,13 @@ class UsersIndex extends Component
 
         if ($this->search) {
             $this->resetPage();
-            $query->where('name', 'like', '%' . $this->search . '%');
+            $query->where(function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%')
+                    ->orWhere('user_number', 'like', '%' . $this->search . '%');
+            });
         }
-        return $query->where('name', 'like', '%' . $this->search . '%')->orderBy('created_at', $this->sortDirection)->paginate($this->perPage);
+        return $query->orderBy('created_at', $this->sortDirection)->paginate($this->perPage);
     }
 
 

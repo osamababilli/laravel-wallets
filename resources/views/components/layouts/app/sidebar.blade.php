@@ -50,7 +50,7 @@
                         {{ __('Profit  History') }}
                     </flux:navlist.item>
 
-                       <flux:navlist.item icon="history" :href="route('affiliate.index')" wire:navigate
+                    <flux:navlist.item icon="history" :href="route('affiliate.index')" wire:navigate
                         :current="request()->routeIs('affiliate.index')">
                         {{ __('Affiliate  History') }}
                     </flux:navlist.item>
@@ -171,10 +171,10 @@
                         </flux:navlist.item>
 
 
-                       <flux:navlist.item icon="history" :href="route('affiliate.index')" wire:navigate
-                        :current="request()->routeIs('affiliate.index')">
-                        {{ __('Affiliate  History') }}
-                       </flux:navlist.item>
+                        <flux:navlist.item icon="history" :href="route('affiliate.index')" wire:navigate
+                            :current="request()->routeIs('affiliate.index')">
+                            {{ __('Affiliate  History') }}
+                        </flux:navlist.item>
 
 
                     </flux:navlist>
@@ -361,7 +361,7 @@
 
             <!-- Content area -->
             <main class="flex-1 overflow-y-auto bg-zinc-50  dark:bg-zinc-800">
-                <div class="mx-auto max-w-7xl">
+                <div class="mx-auto max-w-7xl mb-10">
                     {{ $slot }}
                 </div>
             </main>

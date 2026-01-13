@@ -35,7 +35,10 @@
     <div class="flex h-full w-full flex-col gap-8 p-4 sm:p-6">
 
         @if (!empty($invite_code))
+
             <div class="mt-8 flex flex-col items-center gap-3">
+              
+               
                 <span class="text-sm font-medium tracking-wide text-gray-500">
                     {{ __('Your Invite Code') }}
                 </span>
@@ -55,6 +58,10 @@
                 <p class="text-xs text-gray-400 text-center max-w-xs">
                     {{ __('Share your invite code with your friends to get USDT') }}
                 </p>
+
+                   <div class="mt-4 text-center" >
+                    معرف العميل الخاص بك :  {{ auth()->user()->user_number }}
+                    </div>
             </div>
         @endif
 

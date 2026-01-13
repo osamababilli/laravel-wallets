@@ -31,6 +31,11 @@
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             {{ __('USER') }}
                         </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            {{ __('معرف المستخدم') }}
+                        </th>
+
                         {{-- المحاذاة أصبحت text-center(يسار في RTL) --}}
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -71,6 +76,11 @@
                         <td
                             class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
                             <a href="{{ route('users.show', $trans->user->id) }}"> {{ $trans->user->name }}</a>
+                        </td>
+
+                           <td
+                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
+                            {{ $trans->user->user_number }}
                         </td>
                         @endhasrole
                         <td

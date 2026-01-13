@@ -39,6 +39,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-zinc-700  dark:text-zinc-400">
                     <tr>
                         <th scope="col" class="px-4 py-3 text-center">{{ __('اسم العضو') }}</th>
+                        <th scope="col" class="px-4 py-3 text-center">{{ __('معرف العضو') }}</th>
                         <th scope="col" class="px-4 py-3 text-center">{{ __('Plan Name') }}</th>
                         <th scope="col" class="px-4 py-3 text-center">{{ __('Required Amount') }}</th>
                         <th scope="col" class="px-4 py-3 text-center">{{ __('Profit') }}</th>
@@ -56,7 +57,8 @@
                     <tr class="border-b dark:border-gray-700">
                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $inverstment->user->name }}</th>
-
+                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $inverstment->user->user_number }}</th>
                         {{-- @dd($inverstment->plan->name) --}}
                         <td class="px-4 py-3">{{ $inverstment->plan->name }} USDT</td>
                         <td class="px-4 py-3">{{ $inverstment->plan->amount }} USDT</td>

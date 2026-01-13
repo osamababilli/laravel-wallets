@@ -25,6 +25,17 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         return $code;
     }
+
+
+    
+    public function GenerateNumber()
+    {
+        do {
+            $number = rand(100000, 999999);
+        } while (User::where('user_number', $number)->exists());
+
+        return $number;
+    }
     /**
      * Handle an incoming registration request.
      */
@@ -45,6 +56,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $user->assignRole('user');
 
         $user->invite_code = $this->randomInviteCode();
+        $user->user_number = $this->GenerateNumber();
         $user->save();
 
         Auth::login($user);

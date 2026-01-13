@@ -10,8 +10,9 @@ class ProfitWithdrawalsList extends Component
 {
 
     use WithPagination;
-
-
+    public $search = '';
+    public $perPage = 10;
+    public $sortDirection = 'desc';
 
 
     public function acceptRquest($id)
@@ -47,11 +48,21 @@ class ProfitWithdrawalsList extends Component
 
     public function ForAdmin()
     {
-        return ProfitWithdrawal::latest()->paginate(30);
+        $query = ProfitWithdrawal::query()->with(['user', 'investment']);
+
+        if ($this->search) {
+            $this->resetPage();
+            $query->whereHas('user', function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%')
+                    ->orWhere('user_number', 'like', '%' . $this->search . '%');
+            });
+        }
+        return $query->orderBy('created_at', $this->sortDirection)->paginate($this->perPage);
     }
     public function ForUser()
     {
-        return auth()->user()->profitWithdrawals()->latest()->paginate(30);
+        return auth()->user()->profitWithdrawals()->orderBy('created_at', $this->sortDirection)->paginate($this->perPage);
     }
 
     public function render()

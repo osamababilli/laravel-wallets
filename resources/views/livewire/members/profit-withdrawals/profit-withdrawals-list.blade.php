@@ -13,6 +13,34 @@
         <flux:separator class="mt-5" />
     </div>
 
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+        <div class="w-full md:w-1/2">
+            <form class="flex items-center">
+                <label for="simple-search" class="sr-only">Search</label>
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-zinc-400" fill="currentColor"
+                            viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input wire:model.live="search" type="text" id="simple-search"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full pl-10 p-2 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+                        placeholder="Search" required="">
+                </div>
+            </form>
+        </div>
+        <div class="w-full flex flex-row md:flex-row md:items-center md:justify-end gap-2 md:gap-3">
+
+
+        </div>
+
+
+
+    </div>
+
 
     <div class="relative rounded-2xl bg-white dark:bg-zinc-800 overflow-hidden  ">
 
@@ -35,6 +63,10 @@
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             {{ __('USER') }}
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            {{ __('معرف العميل') }}
                         </th>
                         @endhasrole
                         {{-- المحاذاة أصبحت text-center(يسار في RTL) --}}
@@ -87,13 +119,17 @@
                             class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
                             <a href="{{ route('users.show', $trans->user->id) }}"> {{ $trans->user->name }}</a>
                         </td>
+                        <td
+                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
+                            {{ $trans->user->user_number }}
+                        </td>
                         @endhasrole
                         <td
                             class="px-6 py-4 whitespace-nowrap text-center text-base font-semibold  text-green-600  dark:text-green-400 ">
                             @hasrole('super admin')
-                                {{ $trans->net_amount }} USDT <br>
+                            {{ $trans->net_amount }} USDT <br>
                             @else
-                                {{ $trans->amount }} USDT
+                            {{ $trans->amount }} USDT
                             @endhasrole
                         </td>
 
@@ -118,7 +154,8 @@
                             title="{{ $trans->wallet_address }}">
                             <div class="flex items-center justify-center gap-2">
                                 <span class="truncate max-w-[150px]">{{ $trans->wallet_address ?? '-' }}</span>
-                                <flux:icon.document-duplicate class="size-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <flux:icon.document-duplicate
+                                    class="size-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400">

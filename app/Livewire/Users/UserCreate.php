@@ -32,6 +32,14 @@ class UserCreate extends Component
     ];
 
 
+    public function GenerateNumber()
+    {
+        do {
+            $number = rand(100000, 999999);
+        } while (User::where('user_number', $number)->exists());
+
+        return $number;
+    }
 
     public function getReferralCode()
     {
@@ -59,12 +67,12 @@ class UserCreate extends Component
             'phone' => $this->phone,
             'status' => $this->UserStatus ? 'active' : 'inactive',
             'referral_code' => $this->getReferralCode(),
+            'user_number' => $this->generateNumber(),
         ]);
 
         if (!empty($this->selectedRoles)) {
             $user->assignRole($this->selectedRoles);
         }
-
 
 
 

@@ -28,6 +28,10 @@
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                             {{ __('USER') }}
                         </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                            {{ __('معرف المستخدم') }}
+                        </th>
                         {{-- المحاذاة أصبحت text-center(يسار في RTL) --}}
                         <th scope="col"
                             class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -79,6 +83,10 @@
                                 @else
                                     Unknown
                                 @endif
+                            </td>
+                              <td
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
+                               {{ $trans->user->user_number }}
                             </td>
                             <td
                                 class="px-6 py-4 whitespace-nowrap text-center text-base font-semibold text-red-600 dark:text-red-400">
