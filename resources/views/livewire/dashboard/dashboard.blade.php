@@ -8,17 +8,16 @@
                 <flux:heading size="lg">{{ __('Deposit USDT') }}</flux:heading>
             </div>
             <flux:input wire:model.live='depositAmount' type="number" label="{{ __('Amount') }}" />
-            <flux:select label="{{ __('Select Wallet') }}">
-                @foreach ($cryptos as $wallet)
-                    <flux:select.option value="{{ $wallet->address }}">{{ $wallet->address }}</flux:select.option>
-                @endforeach
-            </flux:select>
+
             <div class="flex">
                 <flux:spacer />
                 <flux:button wire:click="deposit" type="submit" variant="primary">{{ __('submit') }}</flux:button>
             </div>
         </div>
     </flux:modal>
+
+
+
     <flux:modal name="WithdrawModal" class="w-96 md:w-100">
         <div class="space-y-6">
             <div>
@@ -33,12 +32,15 @@
         </div>
     </flux:modal>
     <div class="flex h-full w-full flex-col gap-8 p-4 sm:p-6">
-
+        <div
+            class="flex items-center justify-between rounded-xl bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-3 shadow-lg">
+            نعتذر للإزعاج، النظام تحت الصيانة حالياً. سنعود قريباً بأداء أفضل وخدمات محسنة.
+        </div>
+        {{-- رمز الدعوة - Invite Code --}}
         @if (!empty($invite_code))
-
             <div class="mt-8 flex flex-col items-center gap-3">
-              
-               
+
+
                 <span class="text-sm font-medium tracking-wide text-gray-500">
                     {{ __('Your Invite Code') }}
                 </span>
@@ -59,9 +61,9 @@
                     {{ __('Share your invite code with your friends to get USDT') }}
                 </p>
 
-                   <div class="mt-4 text-center" >
-                    معرف العميل الخاص بك :  {{ auth()->user()->user_number }}
-                    </div>
+                <div class="mt-4 text-center">
+                    معرف العميل الخاص بك : {{ auth()->user()->user_number }}
+                </div>
             </div>
         @endif
 
@@ -71,7 +73,8 @@
         <div class="grid gap-6 md:grid-cols-3">
 
             {{-- 💳 بطاقة المحفظة الرئيسية (الرصيد) - تصميم نظيف --}}
-            <div class="relative p-6 rounded-2xl min-h-48 
+            <div
+                class="relative p-6 rounded-2xl min-h-48
                        bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
                        border border-neutral-200 dark:border-zinc-700">
 
@@ -79,7 +82,8 @@
                     <div class="mb-4">
                         <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('USDT Wallet') }}
                         </flux:subheading>
-                        <flux:heading size="xl" class="font-extrabold text-3xl tracking-tight text-gray-900
+                        <flux:heading size="xl"
+                            class="font-extrabold text-3xl tracking-tight text-gray-900
                             dark:text-white">
                             {{ Auth::user()->balance ?? '0.00' }} USDT
                         </flux:heading>
@@ -95,58 +99,59 @@
             </div>
 
 
-@hasrole('user')
-
-              <div class="relative p-6 rounded-2xl min-h-48 
+            @hasrole('user')
+                <div
+                    class="relative p-6 rounded-2xl min-h-48
                        bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
                        border border-neutral-200 dark:border-zinc-700">
 
-                <div class="z-10 flex flex-col justify-between h-full">
-                    <div class="mb-4">
-                        <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Withdraw Profits') }}
-                        </flux:subheading>
-                        <flux:heading size="xl" class="font-extrabold text-3xl tracking-tight text-gray-900
+                    <div class="z-10 flex flex-col justify-between h-full">
+                        <div class="mb-4">
+                            <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Withdraw Profits') }}
+                            </flux:subheading>
+                            <flux:heading size="xl"
+                                class="font-extrabold text-3xl tracking-tight text-gray-900
                             dark:text-white">
-                            {{ $profit ?? '0.00' }} USDT
-                        </flux:heading>
-                    </div>
+                                {{ $profit ?? '0.00' }} USDT
+                            </flux:heading>
+                        </div>
 
-                      <div class="mb-4">
-                        <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Available Profits') }}
-                        </flux:subheading>
-                        <flux:heading size="xl" class="font-extrabold text-3xl tracking-tight text-gray-900
+                        <div class="mb-4">
+                            <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Available Profits') }}
+                            </flux:subheading>
+                            <flux:heading size="xl"
+                                class="font-extrabold text-3xl tracking-tight text-gray-900
                             dark:text-white">
-                            {{  number_format($peddingprofit, 2) }} USDT
-                        </flux:heading>
+                                {{ number_format($peddingprofit, 2) }} USDT
+                            </flux:heading>
+                        </div>
                     </div>
                 </div>
-              </div>
-
-              @else
-
-
-               <div class="relative p-6 rounded-2xl min-h-48 
+            @else
+                <div
+                    class="relative p-6 rounded-2xl min-h-48
                        bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
                        border border-neutral-200 dark:border-zinc-700">
 
-                <div class="z-10 flex flex-col justify-between h-full">
-                    <div class="mb-4">
-                        <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Total Profits') }}
-                        </flux:subheading>
-                        <flux:heading size="xl" class="font-extrabold text-3xl tracking-tight text-gray-900
+                    <div class="z-10 flex flex-col justify-between h-full">
+                        <div class="mb-4">
+                            <flux:subheading class="text-gray-500 dark:text-gray-400">{{ __('Total Profits') }}
+                            </flux:subheading>
+                            <flux:heading size="xl"
+                                class="font-extrabold text-3xl tracking-tight text-gray-900
                             dark:text-white">
-                            {{ $adminProfits }} USDT
-                        </flux:heading>
+                                {{ $adminProfits }} USDT
+                            </flux:heading>
+                        </div>
+
+
                     </div>
-
-            
                 </div>
-              </div>
+            @endhasrole
 
-@endhasrole
-
-               {{-- 🔗 بطاقة الإجراءات (Deposit/Withdraw) - تصميم نظيف --}}
-            <div class="relative flex flex-col justify-center gap-4 p-6 rounded-2xl min-h-48
+            {{-- 🔗 بطاقة الإجراءات (Deposit/Withdraw) - تصميم نظيف --}}
+            <div
+                class="relative flex flex-col justify-center gap-4 p-6 rounded-2xl min-h-48
                        bg-white dark:bg-zinc-800 dark:shadow-zinc-950/50
                        border border-neutral-200 dark:border-zinc-700">
 
@@ -168,7 +173,7 @@
 
             </div>
         </div>
-        
+
 
 
 
@@ -199,10 +204,10 @@
                                 {{ __('Type') }}
                             </th>
                             @hasrole('super admin')
-                            <th scope="col"
-                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                {{ __('User') }}
-                            </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    {{ __('User') }}
+                                </th>
                             @endhasrole
                             {{-- المحاذاة أصبحت text-center (يمين في RTL) --}}
 
@@ -216,12 +221,12 @@
                                 {{ __('Amount') }}
                             </th>
                             @hasrole('super admin')
-                           <th scope="col"
-                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                {{ __('Date') }}
-                            </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    {{ __('Date') }}
+                                </th>
                             @endhasrole
-                            
+
                         </tr>
                     </thead>
 
@@ -244,10 +249,10 @@
                                     </span>
                                 </td>
                                 @hasrole('super admin')
-                                <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
-                                    {{ $trans->payable->name }}
-                                </td>
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
+                                        {{ $trans->payable->name }}
+                                    </td>
                                 @endhasrole
                                 <td
                                     class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200 font-medium text-center">
@@ -259,10 +264,10 @@
                                 </td>
 
                                 @hasrole('super admin')
-                                <td
-                                    class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400">
-                                    {{ $trans->created_at->format('d M, Y') }}
-                                </td>
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400">
+                                        {{ $trans->created_at->format('d M, Y') }}
+                                    </td>
                                 @endhasrole
                             </tr>
 

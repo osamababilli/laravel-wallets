@@ -23,7 +23,6 @@ class Dashboard extends Component
         $amount = ProfitWithdrawal::where("status", "approved")->sum('amount');
         $net_amount = ProfitWithdrawal::where("status", "approved")->sum('net_amount');
         return $amount - $net_amount;
-
     }
 
 
@@ -44,6 +43,8 @@ class Dashboard extends Component
 
     public function mount()
     {
+
+        // Flux::modal('DepositModal')->show();
 
         $this->profit = ProfitWithdrawal::where("user_id", auth()->user()->id)->where("status", "approved")->sum('amount');
         $this->peddingprofit = $this->GetUserCurrentProfit();
@@ -103,7 +104,6 @@ class Dashboard extends Component
     public function goToWithdraw()
     {
         return redirect()->route('withdraw-page.index');
-
     }
 
 
